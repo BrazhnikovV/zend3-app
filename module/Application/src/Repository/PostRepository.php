@@ -25,4 +25,21 @@ class PostRepository extends EntityRepository
 
         return $queryBuilder->getQuery()->getArrayResult();
     }
+
+    /**
+     * Retrieves all posts in descending dateCreated order.
+     * @return Query
+     */
+    public function findAllPosts()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $queryBuilder = $entityManager->createQueryBuilder();
+
+        $queryBuilder->select('p')
+            ->from(Post::class, 'p')
+            ->orderBy('p.dateCreated', 'DESC');
+
+        return $queryBuilder->getQuery();
+    }
 }

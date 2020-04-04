@@ -1,13 +1,13 @@
 <?php
-namespace User\Validator;
+namespace Application\Validator;
 
+use Application\Entity\Post;
 use Zend\Validator\AbstractValidator;
-use User\Entity\User;
 /**
  * This validator class is designed for checking if there is an existing user
  * with such an email.
  */
-class UserExistsValidator extends AbstractValidator
+class PostExistsValidator extends AbstractValidator
 {
     /**
      * Available validator options.
@@ -15,7 +15,7 @@ class UserExistsValidator extends AbstractValidator
      */
     protected $options = array(
         'entityManager' => null,
-        'user' => null
+        'post' => null
     );
 
     // Validation failure message IDs.
@@ -40,8 +40,8 @@ class UserExistsValidator extends AbstractValidator
         if(is_array($options)) {
             if(isset($options['entityManager']))
                 $this->options['entityManager'] = $options['entityManager'];
-            if(isset($options['user']))
-                $this->options['user'] = $options['user'];
+            if(isset($options['post']))
+                $this->options['post'] = $options['post'];
         }
 
         // Call the parent class constructor
@@ -61,16 +61,10 @@ class UserExistsValidator extends AbstractValidator
         // Get Doctrine entity manager.
         $entityManager = $this->options['entityManager'];
 
-        $user = $entityManager->getRepository(User::class)
-                ->findOneByEmail($value);
+        $post = $entityManager->getRepository(Post::class)->findOneByTitle($value);
 
-        if($this->options['user']==null) {
-            $isValid = ($user==null);
-        } else {
-            if($this->options['user']->getEmail()!=$value && $user!=null)
-                $isValid = false;
-            else
-                $isValid = true;
+        if($this->options['post']==null) {
+            $isValid = ($post==null);
         }
 
         // If there were an error, set error message.

@@ -32,4 +32,22 @@ class PostService
     public function getAllPosts() {
         return $this->em->getRepository(Post::class)->findAllPostsWithComments();
     }
+
+    /**
+     * getAllPosts - получить все посты вместе со связанными комментариями
+     * @return mixed
+     */
+    public function addPost($data) {
+
+        $post = new Post();
+        $post->setTitle($data['title']);
+        $post->setContent($data['content']);
+        $post->setStatus($data['status']);
+        $post->setDateCreated(date('Y-m-d H:i:s'));
+
+        $this->em->persist($post);
+        $this->em->flush();
+
+        return $post;
+    }
 }

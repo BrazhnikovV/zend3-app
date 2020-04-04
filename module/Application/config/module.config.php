@@ -7,6 +7,7 @@
 
 namespace Application;
 
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -93,7 +94,7 @@ return [
                 // Allow anyone to visit "index" and "about" actions
                 //['actions' => ['index'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
-                ['actions' => ['index'], 'allow' => '+post.manage']
+                ['actions' => ['index','add'], 'allow' => '+post.manage']
             ],
         ]
     ],
@@ -140,6 +141,20 @@ return [
             'message_open_format'      => '<div%s><ul><li>',
             'message_close_string'     => '</li></ul></div>',
             'message_separator_string' => '</li><li>'
+        ]
+    ],
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
         ]
     ],
 ];
