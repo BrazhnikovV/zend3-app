@@ -46,19 +46,22 @@ class NavManager
         $items[] = [
             'id' => 'home',
             'label' => 'Home',
-            'link'  => $url('home')
+            'link'  => $url('home'),
+            'icon'  => 'glyphicon-home'
         ];
 
         $items[] = [
             'id' => 'about',
             'label' => 'About',
-            'link'  => $url('about')
+            'link'  => $url('about'),
+            'icon'  => 'glyphicon-question-sign'
         ];
 
         $items[] = [
             'id' => 'posts',
             'label' => 'Posts',
-            'link'  => $url('posts')
+            'link'  => $url('posts'),
+            'icon'  => 'glyphicon-list'
         ];
 
         // Display "Login" menu item for not authorized user only. On the other hand,
@@ -68,7 +71,8 @@ class NavManager
                 'id' => 'login',
                 'label' => 'Sign in',
                 'link'  => $url('login'),
-                'float' => 'right'
+                'float' => 'right',
+                'icon'  => "glyphicon-lock"
             ];
         } else {
 
@@ -79,7 +83,8 @@ class NavManager
                 $adminDropdownItems[] = [
                             'id' => 'users',
                             'label' => 'Manage Users',
-                            'link' => $url('users')
+                            'link' => $url('users'),
+                            'icon'  => "glyphicon-unlock"
                         ];
             }
 

@@ -35,7 +35,7 @@ div.container a.navbar-brand > img {
 }
 
 div.app-caption {
-    padding: 25px 0px;    
+    padding: 25px 0px;
     font-size:3.0em;
     font-weight: bold;
     color:#6aacaf
@@ -47,12 +47,20 @@ form ul {
   margin: 0px 5px;
 }
 
-form ul li {    
-  color: red;        
+form ul li {
+  color: red;
 }
 
 .alert ul {
   list-style-type: none;
   padding: 0px;
   margin: 0px 5px;
+}
+
+.navbar-default {
+    margin-top: 15px;
+}
+
+.mb-2 {
+    margin-bottom: 15px;
 }

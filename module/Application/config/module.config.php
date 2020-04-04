@@ -89,6 +89,12 @@ return [
                 // Allow authorized users to visit "settings" action
                 ['actions' => ['settings'], 'allow' => '@']
             ],
+            Controller\PostController::class => [
+                // Allow anyone to visit "index" and "about" actions
+                //['actions' => ['index'], 'allow' => '*'],
+                // Allow authorized users to visit "settings" action
+                ['actions' => ['index'], 'allow' => '+post.manage']
+            ],
         ]
     ],
     // This key stores configuration for RBAC manager.
