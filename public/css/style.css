@@ -68,3 +68,8 @@ form ul li {
 h1 {
     margin-top: 0px;
 }
+
+.disabled-click {
+    pointer-events: none;
+    opacity: 0.65;
+}

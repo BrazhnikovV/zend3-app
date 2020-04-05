@@ -21,8 +21,7 @@ $this->form->get('content')->setAttributes([
 
 if (!$this->access('post.manage')) {
     $this->form->get('status')->setAttributes([
-        'class'    => 'form-control',
-        'disabled' => 'disabled'
+        'class'    => 'form-control disabled-click',
     ]);
 } else {
     $this->form->get('status')->setAttributes([

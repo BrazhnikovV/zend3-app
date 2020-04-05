@@ -61,8 +61,8 @@ class PostController extends AbstractActionController
         if ( $this->getRequest()->isPost() ) {
 
             $data = $this->params()->fromPost();
-            $form->setData($data);
 
+            $form->setData($data);
             if( $form->isValid() ) {
 
                 $data = $form->getData();
