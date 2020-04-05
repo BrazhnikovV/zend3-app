@@ -19,9 +19,16 @@ $this->form->get('content')->setAttributes([
     'placeholder'=>'Enter description'
 ]);
 
-$this->form->get('status')->setAttributes([
-    'class'=>'form-control'
-]);
+if (!$this->access('post.manage')) {
+    $this->form->get('status')->setAttributes([
+        'class'    => 'form-control',
+        'disabled' => 'disabled'
+    ]);
+} else {
+    $this->form->get('status')->setAttributes([
+        'class'=>'form-control'
+    ]);
+}
 
 $this->form->get('submit')
     ->setAttributes(['class'=>'btn btn-primary'])
