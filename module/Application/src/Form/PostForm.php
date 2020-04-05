@@ -2,7 +2,6 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
-use Application\Validator\PostExistsValidator;
 
 
 /**
@@ -80,9 +79,9 @@ class PostForm extends Form
             'options' => [
                 'label' => 'Status',
                 'value_options' => [
-                    1 => 'Active',
-                    2 => 'Retired',
-                ]
+                    1 => 'Retired',
+                    2 => 'Active',
+                ],
             ],
         ]);
 
