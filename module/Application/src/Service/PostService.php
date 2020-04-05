@@ -66,4 +66,18 @@ class PostService
 
         return $post;
     }
+
+    /**
+     * deletePost - удалить пост
+     * @param $post
+     * @param $data - данные формы создания поста
+     * @return mixed
+     */
+    public function deletePost($post) {
+
+        $this->em->remove($post);
+        $this->em->flush();
+
+        return true;
+    }
 }

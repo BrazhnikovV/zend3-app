@@ -80,25 +80,22 @@ class PostController extends AbstractActionController
      */
     public function editAction()
     {
-        $id = (int)$this->params()->fromRoute('id', -1);
-        if ( $id < 1 )
+        $post = $this->checkInputDataIdAndEntity();
+        if ( $post === false ) {
             $this->getResponse()->setStatusCode(404);
-
-        $post = $this->entityManager->getRepository(Post::class)->find($id);
-        if ( $post == null )
-            $this->getResponse()->setStatusCode(404);
+            return;
+        }
 
         $form = new PostForm('update', $this->entityManager, $post);
+
         if ( $this->getRequest()->isPost() ) {
 
             $data = $this->params()->fromPost();
             $form->setData($data);
 
-            if($form->isValid()) {
+            if( $form->isValid() ) {
 
-                // Get filtered and validated data
                 $data = $form->getData();
-                // Update post
                 $this->postService->editPost($post, $data);
 
                 return $this->redirect()->toRoute('posts', ['action'=>'index']);
@@ -115,6 +112,43 @@ class PostController extends AbstractActionController
         return new ViewModel(
             array('post' => $post, 'form' => $form)
         );
+    }
+
+    /**
+     * This action deletes a permission.
+     */
+    public function deleteAction()
+    {
+        $post = $this->checkInputDataIdAndEntity();
+        if ( $post === false ) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $this->postService->deletePost($post);
+        $this->flashMessenger()->addSuccessMessage('Deleted the post.');
+
+        return $this->redirect()->toRoute('posts', ['action'=>'index']);
+    }
+
+    /**
+     * checkEditInputData
+     * @return array
+     */
+    private function checkInputDataIdAndEntity() {
+
+        $id = (int)$this->params()->fromRoute('id', -1);
+        if ( $id < 1 ) {
+            return false;
+        }
+
+        $post = $this->entityManager->getRepository(Post::class)->find($id);
+        if ( $post == null ){
+            $this->getResponse()->setStatusCode(404);
+            return false;
+        }
+
+        return $post;
     }
 }
 
