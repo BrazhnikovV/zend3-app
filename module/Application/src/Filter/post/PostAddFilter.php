@@ -1,13 +1,13 @@
 <?php
 
-namespace Application\Filter;
+namespace Application\Filter\post;
 
 use Application\Entity\Post;
 use Zend\Filter\AbstractFilter;
 
 /**
  * Class PostAddFilter
- * @package Application\Filter
+ * @package Application\post\Filter
  */
 class PostAddFilter extends AbstractFilter
 {

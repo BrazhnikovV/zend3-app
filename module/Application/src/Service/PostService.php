@@ -3,7 +3,8 @@
 namespace Application\Service;
 
 use Application\Entity\Post;
-use Application\Filter\PostAddFilter;
+use Application\Filter\post\PostAddFilter;
+use Application\Filter\post\PostEditFilter;
 
 /**
  * Class PostService
@@ -42,6 +43,23 @@ class PostService
     public function addPost($data) {
 
         $post = PostAddFilter::get($data);
+
+        $this->em->persist($post);
+        $this->em->flush();
+
+        return $post;
+    }
+
+    /**
+     * editPost - обновить пост
+     * @param $post
+     * @param $data - данные формы создания поста
+     * @return mixed
+     */
+    public function editPost($post, $data) {
+
+        PostEditFilter::setFormData($data);
+        $post = PostEditFilter::get($post);
 
         $this->em->persist($post);
         $this->em->flush();

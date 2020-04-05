@@ -58,12 +58,12 @@ class PostController extends AbstractActionController
     {
         $form = new PostForm('create', $this->entityManager);
 
-        if ($this->getRequest()->isPost()) {
+        if ( $this->getRequest()->isPost() ) {
 
             $data = $this->params()->fromPost();
             $form->setData($data);
 
-            if($form->isValid()) {
+            if( $form->isValid() ) {
 
                 $data = $form->getData();
                 $this->postService->addPost($data);
@@ -72,9 +72,49 @@ class PostController extends AbstractActionController
             }
         }
 
-        return new ViewModel([
-            'form' => $form
-        ]);
+        return new ViewModel(['form' => $form]);
+    }
+
+    /**
+     * The "edit" action displays a page allowing to edit user.
+     */
+    public function editAction()
+    {
+        $id = (int)$this->params()->fromRoute('id', -1);
+        if ( $id < 1 )
+            $this->getResponse()->setStatusCode(404);
+
+        $post = $this->entityManager->getRepository(Post::class)->find($id);
+        if ( $post == null )
+            $this->getResponse()->setStatusCode(404);
+
+        $form = new PostForm('update', $this->entityManager, $post);
+        if ( $this->getRequest()->isPost() ) {
+
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+
+            if($form->isValid()) {
+
+                // Get filtered and validated data
+                $data = $form->getData();
+                // Update post
+                $this->postService->editPost($post, $data);
+
+                return $this->redirect()->toRoute('posts', ['action'=>'index']);
+            }
+        } else {
+
+            $form->setData(array(
+                'title'   => $post->getTitle(),
+                'content' => $post->getContent(),
+                'status'  => $post->getStatus()
+            ));
+        }
+
+        return new ViewModel(
+            array('post' => $post, 'form' => $form)
+        );
     }
 }
 

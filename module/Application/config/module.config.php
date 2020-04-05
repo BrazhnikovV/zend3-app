@@ -94,7 +94,7 @@ return [
                 // Allow anyone to visit "index" and "about" actions
                 //['actions' => ['index'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
-                ['actions' => ['index','add'], 'allow' => '+post.manage']
+                ['actions' => ['index','add','edit'], 'allow' => '+post.manage']
             ],
         ]
     ],
