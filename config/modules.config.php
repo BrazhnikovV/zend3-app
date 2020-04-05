@@ -28,8 +28,9 @@ return [
     'Zend\Mvc\Plugin\FilePrg',
     'Zend\Form',
     'Zend\Router',
-    'Zend\Validator',    
+    'Zend\Validator',
     'ZendDeveloperTools',
     'Application',
-    'User'
+    'User',
+    'Common',
 ];

@@ -8,39 +8,54 @@
 namespace User;
 
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Controller\AbstractActionController;
-use User\Controller\AuthController;
 use User\Service\AuthManager;
+use User\Controller\AuthController;
+use Zend\Mvc\Controller\AbstractActionController;
 
+/**
+ * Class Module - модуль для работы с пользователями их правами и привелегиями.
+ * @package User
+ */
 class Module
 {
     /**
      * This method returns the path to module.config.php file.
+     * @return mixed
      */
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-    
+
     /**
      * This method is called once the MVC bootstrapping is complete and allows
-     * to register event listeners. 
+     * to register event listeners.
+     * @param MvcEvent $event
+     * @return void
      */
     public function onBootstrap(MvcEvent $event)
     {
         // Get event manager.
         $eventManager = $event->getApplication()->getEventManager();
         $sharedEventManager = $eventManager->getSharedManager();
-        // Register the event listener method. 
-        $sharedEventManager->attach(AbstractActionController::class, 
-                MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
-        
+        // Register the event listener method.
+        $sharedEventManager->attach(
+            AbstractActionController::class,
+          MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'],
+            100
+        );
+
         $sessionManager = $event->getApplication()->getServiceManager()->get('Zend\Session\SessionManager');
-        
+
         $this->forgetInvalidSession($sessionManager);
     }
-    
-    protected function forgetInvalidSession($sessionManager) 
+
+    /**
+     * forgetInvalidSession
+     * @param $sessionManager
+     * @return void
+     */
+    protected function forgetInvalidSession($sessionManager)
     {
     	try {
     		$sessionManager->start();
@@ -54,13 +69,16 @@ class Module
     	session_unset();
     	// @codeCoverageIgnoreEnd
     }
-    
+
     /**
      * Event listener method for the 'Dispatch' event. We listen to the Dispatch
      * event to call the access filter. The access filter allows to determine if
      * the current visitor is allowed to see the page or not. If he/she
-     * is not authorized and is not allowed to see the page, we redirect the user 
+     * is not authorized and is not allowed to see the page, we redirect the user
      * to the login page.
+     *
+     * @param MvcEvent $event
+     * @return mixed
      */
     public function onDispatch(MvcEvent $event)
     {
@@ -68,19 +86,19 @@ class Module
         $controller = $event->getTarget();
         $controllerName = $event->getRouteMatch()->getParam('controller', null);
         $actionName = $event->getRouteMatch()->getParam('action', null);
-        
+
         // Convert dash-style action name to camel-case.
         $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
-        
+
         // Get the instance of AuthManager service.
         $authManager = $event->getApplication()->getServiceManager()->get(AuthManager::class);
-        
+
         // Execute the access filter on every controller except AuthController
         // (to avoid infinite redirect).
         if ($controllerName!=AuthController::class)
         {
             $result = $authManager->filterAccess($controllerName, $actionName);
-            
+
             if ($result==AuthManager::AUTH_REQUIRED) {
                 // Remember the URL of the page the user tried to access. We will
                 // redirect the user to that URL after successful login.
@@ -94,7 +112,7 @@ class Module
                 $redirectUrl = $uri->toString();
 
                 // Redirect the user to the "Login" page.
-                return $controller->redirect()->toRoute('login', [], 
+                return $controller->redirect()->toRoute('login', [],
                         ['query'=>['redirectUrl'=>$redirectUrl]]);
             }
             else if ($result==AuthManager::ACCESS_DENIED) {

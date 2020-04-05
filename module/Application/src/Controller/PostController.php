@@ -2,6 +2,7 @@
 namespace Application\Controller;
 
 use Application\Entity\Post;
+use Common\Filter\PaginatorFilter;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 use Application\Form\PostForm;
@@ -45,9 +46,7 @@ class PostController extends AbstractActionController
         $page = $this->params()->fromQuery('page', 1);
         $query = $this->entityManager->getRepository(Post::class)->findAllPosts();
 
-        $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
-        $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(3);
+        $paginator = PaginatorFilter::get($query);
         $paginator->setCurrentPageNumber($page);
 
         return new ViewModel([

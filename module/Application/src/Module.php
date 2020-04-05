@@ -10,27 +10,41 @@ namespace Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\SessionManager;
 
+/**
+ * Class Module
+ * @package Application - стартовый(начальный, основной хз..) модуль приложения
+ */
 class Module
 {
+    /**
+     * @access public
+     * @var string VERSION - версия модуля
+     */
     const VERSION = '3.0.0dev';
 
+    /**
+     * getConfig - получить конфигурацию текущего модуля
+     * @return mixed
+     */
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-    
+
     /**
-     * This method is called once the MVC bootstrapping is complete. 
+     * This method is called once the MVC bootstrapping is complete.
+     * @param MvcEvent $event
+     * @return void
      */
     public function onBootstrap(MvcEvent $event)
     {
         $application = $event->getApplication();
         $serviceManager = $application->getServiceManager();
-        
+
         // The following line instantiates the SessionManager and automatically
-        // makes the SessionManager the 'default' one to avoid passing the 
+        // makes the SessionManager the 'default' one to avoid passing the
         // session manager as a dependency to other models.
-        $sessionManager = $serviceManager->get(SessionManager::class);
+        $serviceManager->get(SessionManager::class);
     }
 }
 
