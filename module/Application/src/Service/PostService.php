@@ -3,6 +3,7 @@
 namespace Application\Service;
 
 use Application\Entity\Post;
+use Application\Filter\PostAddFilter;
 
 /**
  * Class PostService
@@ -34,16 +35,13 @@ class PostService
     }
 
     /**
-     * getAllPosts - получить все посты вместе со связанными комментариями
+     * addPost - создать новый пост
+     * @param $data - данные формы создания поста
      * @return mixed
      */
     public function addPost($data) {
 
-        $post = new Post();
-        $post->setTitle($data['title']);
-        $post->setContent($data['content']);
-        $post->setStatus($data['status']);
-        $post->setDateCreated(date('Y-m-d H:i:s'));
+        $post = PostAddFilter::get($data);
 
         $this->em->persist($post);
         $this->em->flush();

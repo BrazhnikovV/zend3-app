@@ -1,14 +1,12 @@
 <?php
+
 namespace Application\Controller;
 
 use Application\Entity\Post;
-use Common\Filter\PaginatorFilter;
-use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 use Application\Form\PostForm;
+use Common\Filter\PaginatorFilter;
 use Zend\Mvc\Controller\AbstractActionController;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 
 /**
  * This is the main controller class of the User Demo application. It contains
@@ -30,11 +28,13 @@ class PostController extends AbstractActionController
 
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
+     * @param $entityManager - менеджер сущностей
+     * @param $postService - сервис постов
      */
     public function __construct($entityManager, $postService)
     {
        $this->entityManager = $entityManager;
-       $this->postService = $postService;
+       $this->postService   = $postService;
     }
 
     /**
@@ -43,15 +43,12 @@ class PostController extends AbstractActionController
      */
     public function indexAction()
     {
-        $page = $this->params()->fromQuery('page', 1);
-        $query = $this->entityManager->getRepository(Post::class)->findAllPosts();
+        $currentPage = $this->params()->fromQuery('page', 1);
+        $selectQuery = $this->entityManager->getRepository(Post::class)->findAllPosts();
+        $paginator   = PaginatorFilter::get($selectQuery);
+        $paginator->setCurrentPageNumber($currentPage);
 
-        $paginator = PaginatorFilter::get($query);
-        $paginator->setCurrentPageNumber($page);
-
-        return new ViewModel([
-            'posts' => $paginator
-        ]);
+        return new ViewModel(['posts' => $paginator]);
     }
 
     /**
