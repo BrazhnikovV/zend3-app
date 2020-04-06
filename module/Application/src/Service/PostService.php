@@ -2,10 +2,10 @@
 
 namespace Application\Service;
 
+use User\Entity\User;
 use Application\Entity\Post;
 use Application\Filter\post\PostAddFilter;
 use Application\Filter\post\PostEditFilter;
-use User\Entity\User;
 
 /**
  * Class PostService
@@ -93,6 +93,10 @@ class PostService
         return true;
     }
 
+    /**
+     * getCurrentUser
+     * @return mixed
+     */
     private function getCurrentUser() {
         $email = $this->authService->getIdentity();
         return $this->em->getRepository(User::class)->findOneByEmail($email);

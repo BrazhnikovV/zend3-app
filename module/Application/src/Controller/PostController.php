@@ -19,13 +19,8 @@ class PostController extends AbstractActionController
      * Entity manager.
      * @var Doctrine\ORM\em
      */
-    private $entityManager;
+    private $em;
 
-    /**
-     * Auth service.
-     * @var Zend\Authentication\Authentication
-     */
-    private $authService;
 
     /**
      * Entity manager.
@@ -38,11 +33,10 @@ class PostController extends AbstractActionController
      * @param $entityManager - менеджер сущностей
      * @param $postService - сервис постов
      */
-    public function __construct($entityManager, $postService, $authService)
+    public function __construct($entityManager, $postService)
     {
        $this->em = $entityManager;
        $this->postService   = $postService;
-       $this->authService   = $authService;
     }
 
     /**
