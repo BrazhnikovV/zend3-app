@@ -67,11 +67,19 @@ class User
     private $roles;
 
     /**
+     * @access protected
+     * @ORM\OneToMany(targetEntity="\Application\Entity\Post", mappedBy="user", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(name="id", referencedColumnName="author_id")
+     */
+    protected $posts;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -277,6 +285,24 @@ class User
     public function addRole($role)
     {
         $this->roles->add($role);
+    }
+
+    /**
+     * Возвращает .
+     * @return ArrayCollection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Добавляет новый
+     * @param $post
+     */
+    public function addPost($post)
+    {
+        $this->posts[] = $post;
     }
 }
 

@@ -26,6 +26,7 @@ $this->pageBreadcrumbs()->setItems([
 
     <tr>
         <th>ID</th>
+        <th>Author</th>
         <th>Title</th>
         <th>Date Created</th>
         <th>Status</th>
@@ -36,6 +37,9 @@ $this->pageBreadcrumbs()->setItems([
 
         <tr>
             <td><?= $this->escapeHtml($post->getId()); ?></td>
+            <td>
+                <?= $this->escapeHtml($post->getUser()->getFullName()); ?></a>
+            </td>
             <td>
                 <?= $this->escapeHtml($post->getTitle()); ?></a>
             </td>

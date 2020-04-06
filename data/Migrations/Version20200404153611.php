@@ -51,10 +51,12 @@ final class Version20200404153611 extends AbstractMigration
     public function down(Schema $schema) : void
     {
         $table = $schema->getTable('comment');
+        $table->dropTable('comment');
         $table->dropIndex('post_id_index');
         $table->removeForeignKey('comment_post_id_fk');
 
         $table = $schema->getTable('post');
+        $table->dropTable('post');
         $table->dropIndex('date_created_index');
 
     }

@@ -51,29 +51,18 @@ class Post
     protected $comments;
 
     /**
+     * @access protected
+     * @ORM\ManyToOne(targetEntity="\User\Entity\User", inversedBy="post")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * Post constructor.
      */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-    }
-
-    /**
-     * Возвращает комментарии для этого поста.
-     * @return ArrayCollection
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
-
-    /**
-     * Добавляет новый комментарий к этому посту.
-     * @param $comment
-     */
-    public function addComment($comment)
-    {
-        $this->comments[] = $comment;
     }
 
     /**
@@ -164,5 +153,42 @@ class Post
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * Возвращает комментарии для этого поста.
+     * @return ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Добавляет новый комментарий к этому посту.
+     * @param $comment
+     */
+    public function addComment($comment)
+    {
+        $this->comments[] = $comment;
+    }
+
+    /*
+     * getPost - Возвращает связанный пост.
+     * @return \User\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * setPost - Задает связного автора.
+     * @param \Application\Entity\Post $user - пост
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        $user->addPost($this);
     }
 }

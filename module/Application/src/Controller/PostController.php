@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use Application\Entity\Post;
+use User\Entity\User;
 use Zend\View\Model\ViewModel;
 use Application\Form\PostForm;
 use Common\Filter\PaginatorFilter;
@@ -16,9 +17,15 @@ class PostController extends AbstractActionController
 {
     /**
      * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @var Doctrine\ORM\em
      */
     private $entityManager;
+
+    /**
+     * Auth service.
+     * @var Zend\Authentication\Authentication
+     */
+    private $authService;
 
     /**
      * Entity manager.
@@ -31,10 +38,11 @@ class PostController extends AbstractActionController
      * @param $entityManager - менеджер сущностей
      * @param $postService - сервис постов
      */
-    public function __construct($entityManager, $postService)
+    public function __construct($entityManager, $postService, $authService)
     {
-       $this->entityManager = $entityManager;
+       $this->em = $entityManager;
        $this->postService   = $postService;
+       $this->authService   = $authService;
     }
 
     /**
@@ -44,11 +52,13 @@ class PostController extends AbstractActionController
     public function indexAction()
     {
         $currentPage = $this->params()->fromQuery('page', 1);
-        $selectQuery = $this->entityManager->getRepository(Post::class)->findAllPosts();
+        $selectQuery = $this->em->getRepository(Post::class)->findAllPosts();
         $paginator   = PaginatorFilter::get($selectQuery);
         $paginator->setCurrentPageNumber($currentPage);
 
-        return new ViewModel(['posts' => $paginator]);
+        return new ViewModel([
+            'posts' => $paginator
+        ]);
     }
 
     /**
@@ -56,7 +66,9 @@ class PostController extends AbstractActionController
      */
     public function addAction()
     {
-        $form = new PostForm('create', $this->entityManager);
+        $form = new PostForm('create', $this->em);
+        $email = $this->authService->getIdentity();
+        $user  = $this->em->getRepository(User::class)->findOneByEmail($email);
 
         if ( $this->getRequest()->isPost() ) {
 
@@ -86,7 +98,7 @@ class PostController extends AbstractActionController
             return;
         }
 
-        $form = new PostForm('update', $this->entityManager, $post);
+        $form = new PostForm('update', $this->em, $post);
 
         if ( $this->getRequest()->isPost() ) {
 
@@ -142,7 +154,7 @@ class PostController extends AbstractActionController
             return false;
         }
 
-        $post = $this->entityManager->getRepository(Post::class)->find($id);
+        $post = $this->em->getRepository(Post::class)->find($id);
         if ( $post == null ){
             $this->getResponse()->setStatusCode(404);
             return false;

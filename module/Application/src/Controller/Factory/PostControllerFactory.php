@@ -16,7 +16,7 @@ class PostControllerFactory implements FactoryInterface
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $postService = $container->get(PostService::class);
-        // Instantiate the controller and inject dependencies
-        return new PostController($entityManager, $postService);
+        $authService = $container->get(\Zend\Authentication\AuthenticationService::class);
+        return new PostController($entityManager, $postService, $authService);
     }
 }
