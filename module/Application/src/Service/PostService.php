@@ -5,6 +5,7 @@ namespace Application\Service;
 use Application\Entity\Post;
 use Application\Filter\post\PostAddFilter;
 use Application\Filter\post\PostEditFilter;
+use User\Entity\User;
 
 /**
  * Class PostService
@@ -19,12 +20,20 @@ class PostService
     private $em;
 
     /**
+     * Auth service.
+     * @var Zend\Authentication\Authentication
+     */
+    private $authService;
+
+    /**
      * Constructor.
      * @param $entityManager - менеджер сущностей
+     * @param $authService
      */
-    public function __construct($entityManager)
+    public function __construct($entityManager, $authService)
     {
         $this->em = $entityManager;
+        $this->authService = $authService;
     }
 
     /**
@@ -43,6 +52,9 @@ class PostService
     public function addPost($data) {
 
         $post = PostAddFilter::get($data);
+
+        $user = $this->getCurrentUser();
+        $post->setUser($user);
 
         $this->em->persist($post);
         $this->em->flush();
@@ -79,5 +91,10 @@ class PostService
         $this->em->flush();
 
         return true;
+    }
+
+    private function getCurrentUser() {
+        $email = $this->authService->getIdentity();
+        return $this->em->getRepository(User::class)->findOneByEmail($email);
     }
 }

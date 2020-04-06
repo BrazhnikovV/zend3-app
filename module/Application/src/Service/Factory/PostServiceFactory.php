@@ -22,6 +22,7 @@ class PostServiceFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        return new PostService($entityManager);
+        $authService = $container->get(\Zend\Authentication\AuthenticationService::class);
+        return new PostService($entityManager, $authService);
     }
 }

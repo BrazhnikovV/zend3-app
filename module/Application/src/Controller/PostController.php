@@ -67,8 +67,6 @@ class PostController extends AbstractActionController
     public function addAction()
     {
         $form = new PostForm('create', $this->em);
-        $email = $this->authService->getIdentity();
-        $user  = $this->em->getRepository(User::class)->findOneByEmail($email);
 
         if ( $this->getRequest()->isPost() ) {
 
