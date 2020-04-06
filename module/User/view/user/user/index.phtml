@@ -24,31 +24,31 @@ $this->pageBreadcrumbs()->setItems([
         <th>ID</th>
         <th>E-mail</th>
         <th>Full Name</th>
-        <th>Role(s)</th>        
+        <th>Role(s)</th>
         <th>Date Created</th>
-        <th>Status</th>        
-        <th>Actions</th>        
+        <th>Status</th>
+        <th>Actions</th>
     </tr>
-    
-    <?php foreach ($users as $user): ?>
-    
+
+    <?php foreach ($this->users as $user): ?>
+
     <tr>
         <td><?= $this->escapeHtml($user->getId()); ?></td>
         <td>
             <a href="<?= $this->url('users', ['action'=>'view', 'id'=>$user->getId()]); ?>">
                 <?= $this->escapeHtml($user->getEmail()); ?>
-            </a> 
+            </a>
         </td>
         <td>
-            <?= $this->escapeHtml($user->getFullName()); ?></a> 
+            <?= $this->escapeHtml($user->getFullName()); ?></a>
         </td>
         <td>
-            <?= $this->escapeHtml($user->getRolesAsString()); ?></a> 
+            <?= $this->escapeHtml($user->getRolesAsString()); ?></a>
         </td>
-        <td><nobr><?= $this->escapeHtml($user->getDateCreated()); ?></nobr></td>        
+        <td><nobr><?= $this->escapeHtml($user->getDateCreated()); ?></nobr></td>
         <td><?= $this->escapeHtml($user->getStatusAsString()); ?></td>
         <td>
-            <a class="btn btn-info" href="<?= $this->url('users', 
+            <a class="btn btn-info" href="<?= $this->url('users',
                     ['action'=>'edit', 'id'=>$user->getId()]); ?>">
                 <span class="glyphicon glyphicon-pencil" ></span> Edit
             </a>
@@ -56,14 +56,14 @@ $this->pageBreadcrumbs()->setItems([
                     ['action'=>'change-password', 'id'=>$user->getId()]); ?>">
                 <span class="glyphicon glyphicon-asterisk"></span> Change Password
             </a>
-        </td>    
+        </td>
     </tr>
-        
-    <?php endforeach; ?>   
-    
+
+    <?php endforeach; ?>
+
 </table>
 
-<?= $this->paginationControl($users,
+<?= $this->paginationControl($this->users,
                     'Sliding',
-                    'user/partial/paginator', 
+                    'user/partial/paginator',
                     array('route' => 'users')); ?>

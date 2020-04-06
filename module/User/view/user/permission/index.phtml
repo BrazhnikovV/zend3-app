@@ -29,24 +29,24 @@ $this->pageBreadcrumbs()->setItems([
         <th>Name</th>
         <th>Description</th>
         <th>Date Created</th>
-        <th>Actions</th>        
+        <th>Actions</th>
     </tr>
-    
-    <?php foreach ($permissions as $permission): ?>
-    
+
+    <?php foreach ($this->permissions as $permission): ?>
+
     <tr>
         <td><?= $this->escapeHtml($permission->getId()); ?></td>
         <td>
             <a href="<?= $this->url('permissions', ['action'=>'view', 'id'=>$permission->getId()]); ?>">
                 <?= $this->escapeHtml($permission->getName()); ?>
-            </a> 
+            </a>
         </td>
-        <td><?= $this->escapeHtml($permission->getDescription()); ?></a> 
+        <td><?= $this->escapeHtml($permission->getDescription()); ?></a>
         </td>
-        <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>        
+        <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>
         <td>
             <nobr>
-            <a class="btn btn-info" href="<?= $this->url('permissions', 
+            <a class="btn btn-info" href="<?= $this->url('permissions',
                     ['action'=>'edit', 'id'=>$permission->getId()]); ?>">
                 <span class="glyphicon glyphicon-pencil" ></span> Edit
             </a>
@@ -55,11 +55,14 @@ $this->pageBreadcrumbs()->setItems([
                 <span class="glyphicon glyphicon-remove"></span> Delete
             </a>
             </nobr>
-        </td>    
+        </td>
     </tr>
-        
-    <?php endforeach; ?>   
-    
-</table>
 
+    <?php endforeach; ?>
+
+</table>
+<?= $this->paginationControl($this->permissions,
+    'Sliding',
+    'user/partial/paginator',
+    array('route' => 'permissions')); ?>
 
