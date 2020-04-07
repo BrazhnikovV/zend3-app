@@ -4,65 +4,70 @@ $this->headTitle('Permissions');
 $this->mainMenu()->setActiveItemId('permissions');
 
 $this->pageBreadcrumbs()->setItems([
-            'Home'=>$this->url('home'),
-            'Manage Permissions'=>$this->url('permissions'),
-            ]);
+    'Home'=>$this->url('home'),
+    'Manage Permissions'=>$this->url('permissions'),
+    ]);
 ?>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Manage Permissions</h1>
 
-<h1>Manage Permissions</h1>
+        <?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
+        <?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
+        <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
-<?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
-<?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
-<?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
-
-<p>
-<a class="btn btn-default" href="
-    <?= $this->url('permissions', ['action'=>'add']); ?>">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Permission
-</a>
-</p>
-
-<table class="table table-striped">
-
-   <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Date Created</th>
-        <th>Actions</th>
-    </tr>
-
-    <?php foreach ($this->permissions as $permission): ?>
-
-    <tr>
-        <td><?= $this->escapeHtml($permission->getId()); ?></td>
-        <td>
-            <a href="<?= $this->url('permissions', ['action'=>'view', 'id'=>$permission->getId()]); ?>">
-                <?= $this->escapeHtml($permission->getName()); ?>
+        <p>
+            <a class="btn btn-default" href="<?= $this->url('permissions', ['action'=>'add']); ?>">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Permission
             </a>
-        </td>
-        <td><?= $this->escapeHtml($permission->getDescription()); ?></a>
-        </td>
-        <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>
-        <td>
-            <nobr>
-            <a class="btn btn-info" href="<?= $this->url('permissions',
-                    ['action'=>'edit', 'id'=>$permission->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span> Edit
-            </a>
-            <a class="btn btn-danger" href="<?= $this->url('permissions',
-                    ['action'=>'delete', 'id'=>$permission->getId()]); ?>">
-                <span class="glyphicon glyphicon-remove"></span> Delete
-            </a>
-            </nobr>
-        </td>
-    </tr>
+        </p>
+    </div>
+    <div class="col-md-12 scroll-x-auto">
+        <table class="table table-striped  table-condensed min-width-table">
 
-    <?php endforeach; ?>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </tr>
 
-</table>
-<?= $this->paginationControl($this->permissions,
-    'Sliding',
-    'user/partial/paginator',
-    array('route' => 'permissions')); ?>
+            <?php foreach ($this->permissions as $permission): ?>
+
+                <tr>
+                    <td><?= $this->escapeHtml($permission->getId()); ?></td>
+                    <td>
+                        <a href="<?= $this->url('permissions', ['action'=>'view', 'id'=>$permission->getId()]); ?>">
+                            <?= $this->escapeHtml($permission->getName()); ?>
+                        </a>
+                    </td>
+                    <td><?= $this->escapeHtml($permission->getDescription()); ?></a>
+                    </td>
+                    <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>
+                    <td class="btn-actions-mini">
+                        <nobr>
+                            <a class="btn btn-info" href="<?= $this->url('permissions',
+                                ['action'=>'edit', 'id'=>$permission->getId()]); ?>">
+                                <span class="glyphicon glyphicon-pencil" ></span>
+                            </a>
+                            <a class="btn btn-danger" href="<?= $this->url('permissions',
+                                ['action'=>'delete', 'id'=>$permission->getId()]); ?>">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </nobr>
+                    </td>
+                </tr>
+
+            <?php endforeach; ?>
+
+        </table>
+    </div>
+    <div class="col-md-12">
+        <?= $this->paginationControl($this->permissions,
+            'Sliding',
+            'user/partial/paginator',
+            array('route' => 'permissions')); ?>
+    </div>
+</div>
 

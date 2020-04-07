@@ -89,9 +89,8 @@ form ul li {
     margin-bottom: 8px;
 }
 
-.btn-actions-mini > a {
-    padding: 3px 6px;
-    margin-bottom: 2px;
+.btn-actions-mini a {
+    padding: 3px 6px 2px 6px;
 }
 
 .scroll-x-auto {
@@ -100,4 +99,8 @@ form ul li {
 
 .min-width-table {
     min-width: 970px;
+}
+
+.table > tbody > tr > td {
+    vertical-align: inherit;
 }
