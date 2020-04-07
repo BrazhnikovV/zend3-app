@@ -1,5 +1,15 @@
+html {
+    height: 100%;
+}
 body {
     padding-bottom: 40px;
+    height: 100%;
+}
+
+.container {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -41px;
 }
 
 .zf-green {
@@ -72,4 +82,22 @@ h1 {
 .disabled-click {
     pointer-events: none;
     opacity: 0.65;
+}
+
+form ul li {
+    margin-left: -5px;
+    margin-bottom: 8px;
+}
+
+.btn-actions-mini > a {
+    padding: 3px 6px;
+    margin-bottom: 2px;
+}
+
+.scroll-x-auto {
+    overflow-x: auto;
+}
+
+.min-width-table {
+    min-width: 970px;
 }

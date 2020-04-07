@@ -8,65 +8,70 @@ $this->pageBreadcrumbs()->setItems([
     'Posts'=>$this->url('posts'),
 ]);
 ?>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Manage Posts</h1>
 
-<h1>Manage Posts</h1>
+        <?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
+        <?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
+        <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
-<?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
-<?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
-<?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
+        <p>
+            <a class="btn btn-default" href="<?= $this->url('posts', ['action'=>'add']); ?>">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Post
+            </a>
+        </p>
+    </div>
+    <div class="col-md-12 scroll-x-auto">
+        <table class="table table-striped table-condensed min-width-table">
 
-<p>
-    <a class="btn btn-default" href="
-    <?= $this->url('posts', ['action'=>'add']); ?>">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Post
-    </a>
-</p>
+            <tr>
+                <th>ID</th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Date Created</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
 
-<table class="table table-striped">
+            <?php foreach ($this->posts as $post): ?>
 
-    <tr>
-        <th>ID</th>
-        <th>Author</th>
-        <th>Title</th>
-        <th>Date Created</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </tr>
+                <tr>
+                    <td><?= $this->escapeHtml($post->getId()); ?></td>
+                    <td>
+                        <?= $this->escapeHtml($post->getUser()->getFullName()); ?></a>
+                    </td>
+                    <td>
+                        <?= $this->escapeHtml($post->getTitle()); ?></a>
+                    </td>
+                    <td><nobr><?= $this->escapeHtml($post->getDateCreated()); ?></nobr></td>
+                    <td><?= $this->escapeHtml($post->getStatusAsString()); ?></td>
+                    <td class="btn-actions-mini">
+                        <a class="btn btn-info" href="<?= $this->url('posts',
+                            ['action'=>'edit', 'id'=>$post->getId()]); ?>">
+                            <span class="glyphicon glyphicon-pencil" ></span>
+                        </a>
+                        <a class="btn btn-danger" href="<?= $this->url('posts',
+                            ['action'=>'delete', 'id'=>$post->getId()]); ?>">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
 
-    <?php foreach ($this->posts as $post): ?>
+            <?php endforeach; ?>
 
-        <tr>
-            <td><?= $this->escapeHtml($post->getId()); ?></td>
-            <td>
-                <?= $this->escapeHtml($post->getUser()->getFullName()); ?></a>
-            </td>
-            <td>
-                <?= $this->escapeHtml($post->getTitle()); ?></a>
-            </td>
-            <td><nobr><?= $this->escapeHtml($post->getDateCreated()); ?></nobr></td>
-            <td><?= $this->escapeHtml($post->getStatusAsString()); ?></td>
-            <td>
-                <a class="btn btn-info" href="<?= $this->url('posts',
-                    ['action'=>'edit', 'id'=>$post->getId()]); ?>">
-                    <span class="glyphicon glyphicon-pencil" ></span>
-                </a>
-                <a class="btn btn-danger" href="<?= $this->url('posts',
-                    ['action'=>'delete', 'id'=>$post->getId()]); ?>">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-            </td>
-        </tr>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <?= $this->paginationControl(
+            $this->posts,
+            'Sliding',
+            'application/partial/paginator',
+            array('route' => 'posts')
+        ); ?>
+    </div>
+</div>
 
-    <?php endforeach; ?>
-
-</table>
-
-<?= $this->paginationControl(
-        $this->posts,
-        'Sliding',
-        'application/partial/paginator',
-        array('route' => 'posts')
-    ); ?>
 
 
 

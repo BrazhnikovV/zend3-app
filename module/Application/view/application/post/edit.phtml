@@ -1,6 +1,5 @@
 <?php
 $this->headTitle('Edit Post');
-
 $this->mainMenu()->setActiveItemId('posts');
 
 $this->pageBreadcrumbs()->setItems([
@@ -39,30 +38,33 @@ $this->form->prepare();
 <h1>Edit Post</h1>
 
 <div class="row">
+    <?= $this->form()->openTag($this->form); ?>
+    <div class="col-md-12">
+        <?= $this->formElementErrors($this->form->get('csrf')); ?>
+    </div>
     <div class="col-md-6">
-        <?= $this->form()->openTag($this->form); ?>
-
         <div class="form-group">
             <?= $this->formLabel($this->form->get('title')); ?>
             <?= $this->formElement($this->form->get('title')); ?>
             <?= $this->formElementErrors($this->form->get('title')); ?>
         </div>
-
         <div class="form-group">
             <?= $this->formLabel($this->form->get('content')); ?>
             <?= $this->formElement($this->form->get('content')); ?>
             <?= $this->formElementErrors($this->form->get('content')); ?>
         </div>
-
+    </div>
+    <div class="col-md-6">
         <div class="form-group">
             <?= $this->formLabel($this->form->get('status')); ?>
             <?= $this->formElement($this->form->get('status')); ?>
             <?= $this->formElementErrors($this->form->get('status')); ?>
         </div>
-
         <?= $this->formElement($this->form->get('csrf')); ?>
-        <?= $this->formElement($this->form->get('submit')); ?>
-        <?= $this->form()->closeTag(); ?>
     </div>
+    <div class="col-md-12">
+        <?= $this->formElement($this->form->get('submit')); ?>
+    </div>
+    <?= $this->form()->closeTag(); ?>
 </div>
 
