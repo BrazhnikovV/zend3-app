@@ -32,10 +32,7 @@ class PostRepository extends EntityRepository
      */
     public function findAllPosts()
     {
-        $entityManager = $this->getEntityManager();
-
-        $queryBuilder = $entityManager->createQueryBuilder();
-
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->select('p')
             ->from(Post::class, 'p')
             ->orderBy('p.dateCreated', 'DESC');

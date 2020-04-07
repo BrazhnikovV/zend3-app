@@ -11,6 +11,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Post
 {
+    // Post status constants.
+    const STATUS_ACTIVE       = 2; // Active post.
+    const STATUS_RETIRED      = 1; // Retired post.
+
     /**
      * @access protected
      * @ORM\Id
@@ -108,6 +112,31 @@ class Post
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Returns possible statuses as array.
+     * @return array
+     */
+    public static function getStatusList()
+    {
+        return [
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_RETIRED => 'Retired'
+        ];
+    }
+
+    /**
+     * Returns post status as string.
+     * @return string
+     */
+    public function getStatusAsString()
+    {
+        $list = self::getStatusList();
+        if (isset($list[$this->status]))
+            return $list[$this->status];
+
+        return 'Unknown';
     }
 
     /**

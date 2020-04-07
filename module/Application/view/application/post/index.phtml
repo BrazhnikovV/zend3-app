@@ -44,7 +44,7 @@ $this->pageBreadcrumbs()->setItems([
                 <?= $this->escapeHtml($post->getTitle()); ?></a>
             </td>
             <td><nobr><?= $this->escapeHtml($post->getDateCreated()); ?></nobr></td>
-            <td><?= $this->escapeHtml($post->getStatus()); ?></td>
+            <td><?= $this->escapeHtml($post->getStatusAsString()); ?></td>
             <td>
                 <a class="btn btn-info" href="<?= $this->url('posts',
                     ['action'=>'edit', 'id'=>$post->getId()]); ?>">
