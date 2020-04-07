@@ -30,7 +30,7 @@ class PaginatorFilter extends AbstractFilter
     {
         $adapter   = new DoctrineAdapter(new ORMPaginator($value, false));
         $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(3);
+        $paginator->setDefaultItemCountPerPage(5);
 
         return $paginator;
     }
