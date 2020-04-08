@@ -8,12 +8,16 @@
 namespace Application;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zend\I18n\Translator\TranslatorInterface;
+use Zend\I18n\Translator\TranslatorServiceFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
+//        'router_class' => Zend\Mvc\I18n\Router\TranslatorAwareTreeRouteStack::class,
+//        //'translator_text_domain' => 'router',
         'routes' => [
             'home' => [
                 'type' => Literal::class,
@@ -108,6 +112,7 @@ return [
             Service\PostService::class  => Service\Factory\PostServiceFactory::class,
             Service\NavManager::class => Service\Factory\NavManagerFactory::class,
             Service\RbacAssertionManager::class => Service\Factory\RbacAssertionManagerFactory::class,
+            TranslatorInterface::class => TranslatorServiceFactory::class,
         ],
     ],
     'view_helpers' => [
