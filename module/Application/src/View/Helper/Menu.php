@@ -111,9 +111,11 @@ class Menu extends AbstractHelper
         if (isset($item['dropdown'])) {
 
             $dropdownItems = $item['dropdown'];
+            $icon = isset($item['icon']) ? $item['icon'] : '';
 
             $result .= '<li class="dropdown ' . ($isActive?'active':'') . '">';
             $result .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown">';
+            $result .= '<span class="glyphicon '.$icon.'"></span> ';
             $result .= $escapeHtml($label) . ' <b class="caret"></b>';
             $result .= '</a>';
 

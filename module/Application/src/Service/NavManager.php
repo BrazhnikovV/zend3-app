@@ -68,6 +68,29 @@ class NavManager
         // display "Admin" and "Logout" menu items only for authorized users.
         if (!$this->authService->hasIdentity()) {
             $items[] = [
+                'id' => 'lang',
+                'label' => 'Lang',
+                'float' => 'right',
+                'icon'  => "glyphicon-globe",
+                "dropdown" => [
+                    [
+                        'id' => 'eng',
+                        'label' => 'English',
+                        'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'en_GB']])
+                    ],
+                    [
+                        'id' => 'rus',
+                        'label' => 'Russian',
+                        'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'ru_RU']])
+                    ],
+                    [
+                        'id' => 'esp',
+                        'label' => 'Spain',
+                        'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'es_ES']])
+                    ]
+                ]
+            ];
+            $items[] = [
                 'id' => 'login',
                 'label' => 'Sign in',
                 'link'  => $url('login'),
@@ -76,6 +99,29 @@ class NavManager
             ];
         } else {
 
+            $items[] = [
+                'id' => 'lang',
+                'label' => 'Lang',
+                'float' => 'right',
+                'icon'  => "glyphicon-globe",
+                "dropdown" => [
+                    [
+                        'id' => 'eng',
+                        'label' => 'English',
+                        'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'en_GB']])
+                    ],
+                    [
+                        'id' => 'rus',
+                        'label' => 'Russian',
+                        'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'ru_RU']])
+                    ],
+                    [
+                        'id' => 'esp',
+                        'label' => 'Spain',
+                        'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'es_ES']])
+                    ]
+                ]
+            ];
             // Determine which items must be displayed in Admin dropdown.
             $adminDropdownItems = [];
 

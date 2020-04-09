@@ -71,8 +71,11 @@ return [
             'translate' => \Zend\I18n\View\Helper\Translate::class
         ]
     ],
+    'session_containers' => [
+        'I18nSessionContainer'
+    ],
     'translator' => [
-        'locale' => 'es_ES',
+        'locale' => 'ru_RU',
         'translation_file_patterns' => [
             [
                 'type'     => 'phpArray',

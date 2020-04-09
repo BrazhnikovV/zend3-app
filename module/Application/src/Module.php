@@ -38,13 +38,28 @@ class Module
      */
     public function onBootstrap(MvcEvent $event)
     {
-        $application = $event->getApplication();
+        $application    = $event->getApplication();
         $serviceManager = $application->getServiceManager();
 
         // The following line instantiates the SessionManager and automatically
         // makes the SessionManager the 'default' one to avoid passing the
         // session manager as a dependency to other models.
         $serviceManager->get(SessionManager::class);
+
+        // Get language settings from session.
+        $container = $serviceManager->get('I18nSessionContainer');
+        $translator = $event->getApplication()->getServiceManager()->get('MvcTranslator');
+
+        if (!isset($container->languageId)) {
+            $container->languageId = $translator->getLocale();
+        }
+
+        $language = $event->getRequest()->getQuery("l");
+        if ( $language !== null ) {
+            $container->languageId = $language;
+        }
+
+        $translator->setLocale($container->languageId);
     }
 }
 

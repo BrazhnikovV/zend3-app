@@ -90,7 +90,7 @@ return [
         'controllers' => [
             Controller\IndexController::class => [
                 // Allow anyone to visit "index" and "about" actions
-                ['actions' => ['index', 'about'], 'allow' => '*'],
+                ['actions' => ['index', 'about', 'language'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
                 ['actions' => ['settings'], 'allow' => '@']
             ],
@@ -106,6 +106,9 @@ return [
     // This key stores configuration for RBAC manager.
     'rbac_manager' => [
         'assertions' => [Service\RbacAssertionManager::class],
+    ],
+    'session_containers' => [
+        'I18nSessionContainer'
     ],
     'service_manager' => [
         'factories' => [
