@@ -22,7 +22,7 @@ class Menu extends AbstractHelper
 
     /**
      * Constructor.
-     * @param array $items Menu items.
+     * @param $items array - Menu items.
      */
     public function __construct($items=[])
     {

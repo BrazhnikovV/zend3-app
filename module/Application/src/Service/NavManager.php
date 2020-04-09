@@ -8,6 +8,12 @@ namespace Application\Service;
 class NavManager
 {
     /**
+     * @access private
+     * @var string $lang  -
+     */
+    protected $lang = "";
+
+    /**
      * Auth service.
      * @var Zend\Authentication\Authentication
      */
@@ -28,11 +34,19 @@ class NavManager
     /**
      * Constructs the service.
      */
-    public function __construct($authService, $urlHelper, $rbacManager)
+    /**
+     * NavManager constructor.
+     * @param $authService
+     * @param $urlHelper
+     * @param $rbacManager
+     * @param $lang string - текущий язык приложения
+     */
+    public function __construct($authService, $urlHelper, $rbacManager, $lang)
     {
         $this->authService = $authService;
         $this->urlHelper = $urlHelper;
         $this->rbacManager = $rbacManager;
+        $this->lang  = $lang;
     }
 
     /**
@@ -69,7 +83,7 @@ class NavManager
         if (!$this->authService->hasIdentity()) {
             $items[] = [
                 'id' => 'lang',
-                'label' => 'Lang',
+                'label' => $this->lang->languageId,
                 'float' => 'right',
                 'icon'  => "glyphicon-globe",
                 "dropdown" => [
@@ -101,7 +115,7 @@ class NavManager
 
             $items[] = [
                 'id' => 'lang',
-                'label' => 'Lang',
+                'label' => $this->lang->languageId,
                 'float' => 'right',
                 'icon'  => "glyphicon-globe",
                 "dropdown" => [
