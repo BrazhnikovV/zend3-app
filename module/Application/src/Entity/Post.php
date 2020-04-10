@@ -62,6 +62,15 @@ class Post
     protected $comments;
 
     /**
+     * @ORM\ManyToMany(targetEntity="\Application\Entity\Tag", inversedBy="posts")
+     * @ORM\JoinTable(name="post_tag",
+     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $tags;
+
+    /**
      * @access protected
      * @ORM\ManyToOne(targetEntity="\User\Entity\User", inversedBy="post")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
@@ -74,6 +83,7 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->tags     = new ArrayCollection();
     }
 
     /**
@@ -244,5 +254,23 @@ class Post
     {
         $this->user = $user;
         $user->addPost($this);
+    }
+
+    /**
+     * Returns tags for this post.
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Adds a new tag to this post.
+     * @param $tag
+     */
+    public function addTag($tag)
+    {
+        $this->tags[] = $tag;
     }
 }
