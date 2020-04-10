@@ -2,6 +2,7 @@
 
 namespace Application\Repository;
 
+use Application\Entity\Tag;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -11,13 +12,16 @@ use Doctrine\ORM\EntityRepository;
 class TagRepository extends EntityRepository
 {
     /**
-     * zaglushka
-     * @return \Doctrine\ORM\QueryBuilder
+     * findAllTags
+     * @return \Doctrine\ORM\Query
      */
-    public function zaglushka()
+    public function findAllTags()
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder->select('t')
+            ->from(Tag::class, 't')
+            ->orderBy('t.dateCreated', 'DESC');
 
-        return $queryBuilder;
+        return $queryBuilder->getQuery();
     }
 }

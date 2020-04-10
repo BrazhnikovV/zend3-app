@@ -67,12 +67,27 @@ return [
                     ],
                 ],
             ],
+            'tags' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/tags[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ],
+                    'defaults' => [
+                        'controller'    => Controller\TagController::class,
+                        'action'        => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
             Controller\PostController::class => Controller\Factory\PostControllerFactory::class,
+            Controller\TagController::class => Controller\Factory\TagControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -101,6 +116,10 @@ return [
                 ['actions' => ['index','add','edit'], 'allow' => '+post.author'],
                 ['actions' => ['delete'], 'allow' => '+post.manage']
             ],
+            Controller\TagController::class => [
+                ['actions' => ['index','add','edit'], 'allow' => '+post.author'],
+                ['actions' => ['delete'], 'allow' => '+post.manage']
+            ],
         ]
     ],
     // This key stores configuration for RBAC manager.
@@ -113,6 +132,7 @@ return [
     'service_manager' => [
         'factories' => [
             Service\PostService::class  => Service\Factory\PostServiceFactory::class,
+            Service\TagService::class  => Service\Factory\TagServiceFactory::class,
             Service\NavManager::class => Service\Factory\NavManagerFactory::class,
             Service\RbacAssertionManager::class => Service\Factory\RbacAssertionManagerFactory::class,
             TranslatorInterface::class => TranslatorServiceFactory::class,
