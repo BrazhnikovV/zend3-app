@@ -30,7 +30,6 @@ class PostAddFilter extends AbstractFilter
         $post->setTitle($value['title']);
         $post->setContent($value['content']);
         $post->setStatus($value['status']);
-        $post->setDateCreated(date('Y-m-d H:i:s'));
 
         return $post;
     }

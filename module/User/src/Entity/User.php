@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * This class represents a registered user.
  * @ORM\Entity(repositoryClass="\User\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="users")
  */
 class User
@@ -16,6 +17,7 @@ class User
     const STATUS_RETIRED      = 2; // Retired user.
 
     /**
+     * @access protected
      * @ORM\Id
      * @ORM\Column(name="id")
      * @ORM\GeneratedValue
@@ -23,29 +25,40 @@ class User
     protected $id;
 
     /**
+     * @access protected
      * @ORM\Column(name="email")
      */
     protected $email;
 
     /**
+     * @access protected
      * @ORM\Column(name="full_name")
      */
     protected $fullName;
 
     /**
+     * @access protected
      * @ORM\Column(name="password")
      */
     protected $password;
 
     /**
+     * @access protected
      * @ORM\Column(name="status")
      */
     protected $status;
 
     /**
+     * @access protected
      * @ORM\Column(name="date_created")
      */
     protected $dateCreated;
+
+    /**
+     * @access protected
+     * @ORM\Column(name="date_updated")
+     */
+    protected $dateUpdated;
 
     /**
      * @ORM\Column(name="pwd_reset_token")
@@ -213,6 +226,24 @@ class User
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * getDateUpdated - Возвращает дату обновления данного пользователя.
+     * @return mixed
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+
+    /**
+     * setDateUpdated - Устанавливает дату обновления данного пользователя.
+     * @ORM\PreUpdate
+     */
+    public function setDateUpdated()
+    {
+        $this->dateUpdated = date('Y-m-d H:i:s');
     }
 
     /**

@@ -27,7 +27,7 @@ final class Version20200404153611 extends AbstractMigration
         $table->addColumn('status', 'integer', ['notnull'=>true]);
         $table->addColumn('date_created', 'datetime', [
             'notnull'=>true,
-            'default'=> date(DATE_ATOM, mktime(0, 0, 0, 7, 1, 2000))
+            'default'=> date('Y-m-d H:i:s')
         ]);
         $table->setPrimaryKey(['id']);
         $table->addIndex(['date_created'], 'date_created_index');
@@ -40,7 +40,7 @@ final class Version20200404153611 extends AbstractMigration
         $table->addColumn('author', 'string', ['notnull'=>true, 'lenght'=>128]);
         $table->addColumn('date_created', 'datetime', [
             'notnull'=>true,
-            'default'=> date(DATE_ATOM, mktime(0, 0, 0, 7, 1, 2000))
+            'default'=> date('Y-m-d H:i:s')
         ]);
         $table->setPrimaryKey(['id']);
         $table->addIndex(['post_id'], 'post_id_index');

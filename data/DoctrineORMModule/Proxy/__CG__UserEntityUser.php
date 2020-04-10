@@ -66,10 +66,10 @@ class User extends \User\Entity\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'email', 'fullName', 'password', 'status', 'dateCreated', 'passwordResetToken', 'passwordResetTokenCreationDate', '' . "\0" . 'User\\Entity\\User' . "\0" . 'roles', 'posts'];
+            return ['__isInitialized__', 'id', 'email', 'fullName', 'password', 'status', 'dateCreated', 'dateUpdated', 'passwordResetToken', 'passwordResetTokenCreationDate', '' . "\0" . 'User\\Entity\\User' . "\0" . 'roles', 'posts'];
         }
 
-        return ['__isInitialized__', 'id', 'email', 'fullName', 'password', 'status', 'dateCreated', 'passwordResetToken', 'passwordResetTokenCreationDate', '' . "\0" . 'User\\Entity\\User' . "\0" . 'roles', 'posts'];
+        return ['__isInitialized__', 'id', 'email', 'fullName', 'password', 'status', 'dateCreated', 'dateUpdated', 'passwordResetToken', 'passwordResetTokenCreationDate', '' . "\0" . 'User\\Entity\\User' . "\0" . 'roles', 'posts'];
     }
 
     /**
@@ -321,6 +321,28 @@ class User extends \User\Entity\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateCreated', [$dateCreated]);
 
         return parent::setDateCreated($dateCreated);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDateUpdated()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateUpdated', []);
+
+        return parent::getDateUpdated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDateUpdated()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateUpdated', []);
+
+        return parent::setDateUpdated();
     }
 
     /**

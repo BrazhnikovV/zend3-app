@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * This class represents a role.
  * @ORM\Entity(repositoryClass="\User\Repository\RoleRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="role")
  */
 class Role
 {
     /**
+     * @access protected
      * @ORM\Id
      * @ORM\Column(name="id")
      * @ORM\GeneratedValue
@@ -19,19 +21,28 @@ class Role
     protected $id;
 
     /**
+     * @access protected
      * @ORM\Column(name="name")
      */
     protected $name;
 
     /**
+     * @access protected
      * @ORM\Column(name="description")
      */
     protected $description;
 
     /**
+     * @access protected
      * @ORM\Column(name="date_created")
      */
     protected $dateCreated;
+
+    /**
+     * @access protected
+     * @ORM\Column(name="date_updated")
+     */
+    protected $dateUpdated;
 
     /**
      * @ORM\ManyToMany(targetEntity="User\Entity\Role", inversedBy="childRoles")
@@ -116,6 +127,24 @@ class Role
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * getDateUpdated - Возвращает дату обновления данной роли.
+     * @return mixed
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+
+    /**
+     * setDateUpdated - Устанавливает дату обновления данной роли.
+     * @ORM\PreUpdate
+     */
+    public function setDateUpdated()
+    {
+        $this->dateUpdated = date('Y-m-d H:i:s');
     }
 
     public function getParentRoles()

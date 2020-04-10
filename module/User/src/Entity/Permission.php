@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * This class represents a permission.
  * @ORM\Entity(repositoryClass="\User\Repository\PermissionRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="permission")
  */
 class Permission
 {
     /**
+     * @access protected
      * @ORM\Id
      * @ORM\Column(name="id")
      * @ORM\GeneratedValue
@@ -19,19 +21,28 @@ class Permission
     protected $id;
 
     /**
+     * @access protected
      * @ORM\Column(name="name")
      */
     protected $name;
 
     /**
+     * @access protected
      * @ORM\Column(name="description")
      */
     protected $description;
 
     /**
+     * @access protected
      * @ORM\Column(name="date_created")
      */
     protected $dateCreated;
+
+    /**
+     * @access protected
+     * @ORM\Column(name="date_updated")
+     */
+    protected $dateUpdated;
 
     /**
      * @ORM\ManyToMany(targetEntity="User\Entity\Role", mappedBy="permissions")
@@ -88,6 +99,24 @@ class Permission
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * getDateUpdated - Возвращает дату обновления данной привилегии.
+     * @return mixed
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+
+    /**
+     * setDateUpdated - Устанавливает дату обновления данной привилегии.
+     * @ORM\PreUpdate
+     */
+    public function setDateUpdated()
+    {
+        $this->dateUpdated = date('Y-m-d H:i:s');
     }
 
     public function getRoles()

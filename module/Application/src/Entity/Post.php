@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Этот класс представляет собой пост в блоге.
  * @ORM\Entity(repositoryClass="\Application\Repository\PostRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="post")
  */
 class Post
@@ -46,6 +47,12 @@ class Post
      * @ORM\Column(name="date_created")
      */
     protected $dateCreated;
+
+    /**
+     * @access protected
+     * @ORM\Column(name="date_updated")
+     */
+    protected $dateUpdated;
 
     /**
      * @access protected
@@ -177,11 +184,29 @@ class Post
 
     /**
      * setDateCreated - Задает дату создания данного поста.
-     * @param $dateCreated - дата создания
+     * @ORM\PrePersist
      */
-    public function setDateCreated($dateCreated)
+    public function setDateCreated()
     {
-        $this->dateCreated = $dateCreated;
+        $this->dateCreated = date('Y-m-d H:i:s');
+    }
+
+    /**
+     * getDateUpdated - Возвращает дату обновления данного поста.
+     * @return mixed
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+
+    /**
+     * setDateUpdated - Устанавливает дату обновления данного поста.
+     * @ORM\PreUpdate
+     */
+    public function setDateUpdated()
+    {
+        $this->dateUpdated = date('Y-m-d H:i:s');
     }
 
     /**
