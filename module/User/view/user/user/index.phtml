@@ -41,13 +41,13 @@ $this->pageBreadcrumbs()->setItems([
                         </a>
                     </td>
                     <td>
-                        <?= $this->escapeHtml($user->getFullName()); ?></a>
+                        <span><?= $this->escapeHtml($user->getFullName()); ?></span>
                     </td>
                     <td>
-                        <?= $this->escapeHtml($user->getRolesAsString()); ?></a>
+                        <span><?= $this->escapeHtml($user->getRolesAsString()); ?></span>
                     </td>
                     <td><nobr><?= $this->escapeHtml($user->getDateCreated()); ?></nobr></td>
-                    <td><?= $this->escapeHtml($user->getStatusAsString()); ?></td>
+                    <td><span><?= $this->escapeHtml($user->getStatusAsString()); ?></span></td>
                     <td class="btn-actions-mini">
                         <a class="btn btn-info" href="<?= $this->url('users',
                             ['action'=>'edit', 'id'=>$user->getId()]); ?>">

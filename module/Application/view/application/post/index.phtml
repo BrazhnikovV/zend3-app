@@ -30,6 +30,7 @@ $this->pageBreadcrumbs()->setItems([
                 <th>Author</th>
                 <th>Title</th>
                 <th>Date Created</th>
+                <th>Date Updated</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -37,16 +38,19 @@ $this->pageBreadcrumbs()->setItems([
             <?php foreach ($this->posts as $post): ?>
 
                 <tr>
-                    <td><?= $this->escapeHtml($post->getId()); ?></td>
                     <td>
-                        <?= $this->escapeHtml($post->getUser()->getFullName()); ?></a>
+                        <span><?= $this->escapeHtml($post->getId()); ?></span>
                     </td>
                     <td>
-                        <?= $this->escapeHtml($post->getTitle()); ?></a>
+                        <span><?= $this->escapeHtml($post->getUser()->getFullName()); ?></span>
+                    </td>
+                    <td>
+                        <span><?= $this->escapeHtml($post->getTitle()); ?></span>
                     </td>
                     <td><nobr><?= $this->escapeHtml($post->getDateCreated()); ?></nobr></td>
-                    <td><?= $this->escapeHtml($post->getStatusAsString()); ?></td>
-                    <td class="btn-actions-mini">
+                    <td><nobr><?= $this->escapeHtml($post->getDateUpdated()); ?></nobr></td>
+                    <td><span><?= $this->escapeHtml($post->getStatusAsString()); ?></span></td>
+                    <td class="btn-actions-mini"><nobr>
                         <a class="btn btn-info" href="<?= $this->url('posts',
                             ['action'=>'edit', 'id'=>$post->getId()]); ?>">
                             <span class="glyphicon glyphicon-pencil" ></span>
@@ -54,7 +58,7 @@ $this->pageBreadcrumbs()->setItems([
                         <a class="btn btn-danger" href="<?= $this->url('posts',
                             ['action'=>'delete', 'id'=>$post->getId()]); ?>">
                             <span class="glyphicon glyphicon-remove"></span>
-                        </a>
+                        </a></nobr>
                     </td>
                 </tr>
 
