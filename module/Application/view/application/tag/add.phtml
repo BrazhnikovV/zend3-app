@@ -1,38 +1,23 @@
 <?php
-$this->headTitle('Add Post');
-$this->mainMenu()->setActiveItemId('posts');
+$this->headTitle('Add Tag');
+$this->mainMenu()->setActiveItemId('tags');
 
 $this->pageBreadcrumbs()->setItems([
-            'Home'=>$this->url('home'),
-            'Manage Posts'=>$this->url('posts'),
-            'Add Post'=>$this->url('posts', ['action'=>'add'])
-            ]);
+    'Home'=>$this->url('home'),
+    'Manage Tags'=>$this->url('tags'),
+    'Add Tag'=>$this->url('tags', ['action'=>'add'])
+]);
 
-$this->form->get('title')->setAttributes([
+$this->form->get('name')->setAttributes([
     'class'=>'form-control',
-    'placeholder'=>'Заполните титульный заголов поста'
-    ]);
-
-$this->form->get('content')->setAttributes([
-    'class'=>'form-control',
-    'placeholder'=>'John Doe'
-    ]);
-
-if (!$this->access('post.manage')) {
-    $this->form->get('status')->setAttributes([
-        'class'    => 'form-control disabled-click',
-    ]);
-} else {
-    $this->form->get('status')->setAttributes([
-        'class'=>'form-control'
-    ]);
-}
+    'placeholder'=>'Заполните название тега'
+]);
 
 $this->form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
 $this->form->prepare();
 ?>
 
-<h1>Add Post</h1>
+<h1>Add Tag</h1>
 
 <p>Please fill out the following form and click the <i>Create</i> button.</p>
 
@@ -43,24 +28,12 @@ $this->form->prepare();
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <?= $this->formLabel($this->form->get('title')); ?>
-            <?= $this->formElement($this->form->get('title')); ?>
-            <?= $this->formElementErrors($this->form->get('title')); ?>
-        </div>
-        <div class="form-group">
-            <?= $this->formLabel($this->form->get('content')); ?>
-            <?= $this->formElement($this->form->get('content')); ?>
-            <?= $this->formElementErrors($this->form->get('content')); ?>
+            <?= $this->formLabel($this->form->get('name')); ?>
+            <?= $this->formElement($this->form->get('name')); ?>
+            <?= $this->formElementErrors($this->form->get('name')); ?>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <?= $this->formLabel($this->form->get('status')); ?>
-            <?= $this->formElement($this->form->get('status')); ?>
-            <?= $this->formElementErrors($this->form->get('status')); ?>
-        </div>
-        <?= $this->formElement($this->form->get('csrf')); ?>
-    </div>
+    <?= $this->formElement($this->form->get('csrf')); ?>
     <div class="col-md-12">
         <?= $this->formElement($this->form->get('submit')); ?>
     </div>

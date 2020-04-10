@@ -3,7 +3,7 @@
 namespace Application\Controller;
 
 use Application\Entity\Tag;
-use Application\Entity\Post;
+use Application\Form\TagForm;
 use Zend\View\Model\ViewModel;
 use Application\Form\PostForm;
 use Common\Filter\PaginatorFilter;
@@ -60,7 +60,7 @@ class TagController extends AbstractActionController
      */
     public function addAction()
     {
-        $form = new PostForm('create', $this->em);
+        $form = new TagForm('create');
 
         if ( $this->getRequest()->isPost() ) {
 
@@ -70,9 +70,9 @@ class TagController extends AbstractActionController
             if( $form->isValid() ) {
 
                 $data = $form->getData();
-                $this->postService->addPost($data);
+                $this->tagService->addTag($data);
 
-                return $this->redirect()->toRoute('posts', ['action'=>'index']);
+                return $this->redirect()->toRoute('tags', ['action'=>'index']);
             }
         }
 
@@ -90,7 +90,7 @@ class TagController extends AbstractActionController
             return;
         }
 
-        $form = new PostForm('update', $this->em, $post);
+        $form = new TagForm('update');
 
         if ( $this->getRequest()->isPost() ) {
 
@@ -100,21 +100,16 @@ class TagController extends AbstractActionController
             if( $form->isValid() ) {
 
                 $data = $form->getData();
-                $this->postService->editPost($post, $data);
+                $this->tagService->editTag($post, $data);
 
-                return $this->redirect()->toRoute('posts', ['action'=>'index']);
+                return $this->redirect()->toRoute('tags', ['action'=>'index']);
             }
         } else {
-
-            $form->setData(array(
-                'title'   => $post->getTitle(),
-                'content' => $post->getContent(),
-                'status'  => $post->getStatus()
-            ));
+            $form->setData(array( 'name' => $post->getName()));
         }
 
         return new ViewModel(
-            array('post' => $post, 'form' => $form)
+            array('tag' => $post, 'form' => $form)
         );
     }
 
@@ -146,7 +141,7 @@ class TagController extends AbstractActionController
             return false;
         }
 
-        $post = $this->em->getRepository(Post::class)->find($id);
+        $post = $this->em->getRepository(Tag::class)->find($id);
         if ( $post == null ){
             $this->getResponse()->setStatusCode(404);
             return false;

@@ -1,32 +1,18 @@
 <?php
-$this->headTitle('Edit Post');
-$this->mainMenu()->setActiveItemId('posts');
+$this->headTitle('Edit Tag');
+$this->mainMenu()->setActiveItemId('tags');
 
 $this->pageBreadcrumbs()->setItems([
     'Home'=>$this->url('home'),
-    'Manage Posts'=>$this->url('posts'),
-    'Edit Post'=>$this->url('posts', ['action'=>'edit', 'id'=>$this->post->getId()])
+    'Manage Tags'=>$this->url('tags'),
+    'Edit Tag'=>$this->url('tags', ['action'=>'edit', 'id'=>$this->tag->getId()])
 ]);
 
-$this->form->get('title')->setAttributes([
+$this->form->get('name')->setAttributes([
     'class'=>'form-control',
-    'placeholder'=>'Enter title'
+    'placeholder'=>'Enter Name'
 ]);
 
-$this->form->get('content')->setAttributes([
-    'class'=>'form-control',
-    'placeholder'=>'Enter description'
-]);
-
-if (!$this->access('post.manage')) {
-    $this->form->get('status')->setAttributes([
-        'class'    => 'form-control disabled-click',
-    ]);
-} else {
-    $this->form->get('status')->setAttributes([
-        'class'=>'form-control'
-    ]);
-}
 
 $this->form->get('submit')
     ->setAttributes(['class'=>'btn btn-primary'])
@@ -35,7 +21,7 @@ $this->form->get('submit')
 $this->form->prepare();
 ?>
 
-<h1>Edit Post</h1>
+<h1>Edit Tag</h1>
 
 <div class="row">
     <?= $this->form()->openTag($this->form); ?>
@@ -44,22 +30,12 @@ $this->form->prepare();
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <?= $this->formLabel($this->form->get('title')); ?>
-            <?= $this->formElement($this->form->get('title')); ?>
-            <?= $this->formElementErrors($this->form->get('title')); ?>
-        </div>
-        <div class="form-group">
-            <?= $this->formLabel($this->form->get('content')); ?>
-            <?= $this->formElement($this->form->get('content')); ?>
-            <?= $this->formElementErrors($this->form->get('content')); ?>
+            <?= $this->formLabel($this->form->get('name')); ?>
+            <?= $this->formElement($this->form->get('name')); ?>
+            <?= $this->formElementErrors($this->form->get('name')); ?>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group">
-            <?= $this->formLabel($this->form->get('status')); ?>
-            <?= $this->formElement($this->form->get('status')); ?>
-            <?= $this->formElementErrors($this->form->get('status')); ?>
-        </div>
         <?= $this->formElement($this->form->get('csrf')); ?>
     </div>
     <div class="col-md-12">

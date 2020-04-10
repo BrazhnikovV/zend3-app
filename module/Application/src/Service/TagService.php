@@ -2,6 +2,8 @@
 
 namespace Application\Service;
 
+use Application\Entity\Tag;
+
 /**
  * Class TagService
  * @package Application\Service
@@ -31,24 +33,27 @@ class TagService
      */
     public function addTag($data) {
 
-        $this->em->persist($post);
+        $tag = new Tag();
+        $tag->setName($data['name']);
+        $this->em->persist($tag);
         $this->em->flush();
 
-        return $post;
+        return $tag;
     }
 
     /**
      * editTag - обновить Тег
-     * @param $post
-     * @param $data - данные формы создания поста
+     * @param $tag
+     * @param $data - данные формы создания тега
      * @return mixed
      */
-    public function editTag($post, $data) {
+    public function editTag($tag, $data) {
 
-        $this->em->persist($post);
+        $tag->setName($data["name"]);
+        $this->em->persist($tag);
         $this->em->flush();
 
-        return $post;
+        return $tag;
     }
 
     /**

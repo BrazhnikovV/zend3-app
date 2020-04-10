@@ -77,6 +77,12 @@ class NavManager
             'link'  => $url('posts'),
             'icon'  => 'glyphicon-list'
         ];
+        $items[] = [
+            'id' => 'tags',
+            'label' => 'Tags',
+            'link'  => $url('tags'),
+            'icon'  => 'glyphicon-list'
+        ];
 
         // Display "Login" menu item for not authorized user only. On the other hand,
         // display "Admin" and "Logout" menu items only for authorized users.
