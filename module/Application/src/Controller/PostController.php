@@ -23,20 +23,28 @@ class PostController extends AbstractActionController
 
 
     /**
-     * Entity manager.
+     * Servise  post.
      * @var Application\Service\PostService
      */
     private $postService;
 
     /**
+     * Servise  tag.
+     * @var Application\Service\TagService
+     */
+    private $tagService;
+
+    /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      * @param $entityManager - менеджер сущностей
      * @param $postService - сервис постов
+     * @param $tagService -
      */
-    public function __construct($entityManager, $postService)
+    public function __construct($entityManager, $postService, $tagService)
     {
-       $this->em = $entityManager;
-       $this->postService   = $postService;
+        $this->em = $entityManager;
+        $this->postService = $postService;
+        $this->tagService  = $tagService;
     }
 
     /**
@@ -50,17 +58,16 @@ class PostController extends AbstractActionController
         $paginator   = PaginatorFilter::get($selectQuery);
         $paginator->setCurrentPageNumber($currentPage);
 
-        return new ViewModel([
-            'posts' => $paginator
-        ]);
+        return new ViewModel(['posts' => $paginator]);
     }
 
     /**
-     * This action displays a page allowing to add a new user.
+     * This action displays a page allowing to add a new post.
      */
     public function addAction()
     {
         $form = new PostForm('create', $this->em);
+        $tags = $this->tagService->findAllTags();
 
         if ( $this->getRequest()->isPost() ) {
 
@@ -76,11 +83,11 @@ class PostController extends AbstractActionController
             }
         }
 
-        return new ViewModel(['form' => $form]);
+        return new ViewModel(['form' => $form, 'tags' => $tags]);
     }
 
     /**
-     * The "edit" action displays a page allowing to edit user.
+     * The "edit" action displays a page allowing to edit post.
      */
     public function editAction()
     {
@@ -119,7 +126,7 @@ class PostController extends AbstractActionController
     }
 
     /**
-     * This action deletes a permission.
+     * This action deletes a post.
      */
     public function deleteAction()
     {

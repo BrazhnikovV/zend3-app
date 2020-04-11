@@ -124,3 +124,34 @@ form ul li {
 .table > tbody > tr > td:not(:first-child) {
     color: #696868;
 }
+
+#tags-well > .inner-well {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+#tags-well > .table, #tags-well > .inner-well > .table {
+    margin-bottom: 2px;
+}
+
+#tags-well > .table > thead > tr {
+    background-color: #ccc;
+}
+
+#tags-well .table > thead > tr > th:first-child,
+#tags-well > .inner-well > .table > tbody > tr > td:first-child{
+    width: 50px;
+    text-align: center;
+}
+
+#tags-well .table  > tbody > tr > td:not(:first-child) {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+#tags-well .table  > tbody > tr:first-child {
+    background-color: #f9f9f9;
+}

@@ -2,6 +2,7 @@
 namespace Application\Controller\Factory;
 
 use Application\Service\PostService;
+use Application\Service\TagService;
 use Interop\Container\ContainerInterface;
 use Application\Controller\PostController;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -16,6 +17,7 @@ class PostControllerFactory implements FactoryInterface
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $postService = $container->get(PostService::class);
-        return new PostController($entityManager, $postService);
+        $tagService  = $container->get(TagService::class);
+        return new PostController($entityManager, $postService, $tagService);
     }
 }

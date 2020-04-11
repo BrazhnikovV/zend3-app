@@ -27,6 +27,15 @@ class TagService
     }
 
     /**
+     * findAllTags - выбрать все теги
+     * @return mixed
+     */
+    public function findAllTags() {
+
+        return $this->em->getRepository(Tag::class)->findAllTags()->getResult();
+    }
+
+    /**
      * addTag - создать новый тег
      * @param $data - данные формы создания поста
      * @return mixed

@@ -85,6 +85,17 @@ class PostForm extends Form
             ],
         ]);
 
+        // Add "email" field
+        $this->add([
+            'type'  => 'Checkbox',
+            'name' => 'tags[]',
+            'options' => [
+                'label' => 'Tags',
+                'use_hidden_element' => false,
+                'unchecked_value' => ''
+            ],
+        ]);
+
         // Add the CSRF field
         $this->add([
             'type' => 'csrf',

@@ -13,6 +13,10 @@ $this->form->get('title')->setAttributes([
     'placeholder'=>'Заполните титульный заголов поста'
     ]);
 
+$this->form->get('tags[]')->setAttributes([
+
+]);
+
 $this->form->get('content')->setAttributes([
     'class'=>'form-control',
     'placeholder'=>'John Doe'
@@ -60,8 +64,38 @@ $this->form->prepare();
             <?= $this->formElementErrors($this->form->get('status')); ?>
         </div>
         <div class="form-group">
-            <label>Tags</label>
-            <div class="well">...</div>
+            <?= $this->formLabel($this->form->get('tags[]')); ?>
+            <div id="tags-well" class="well">
+                <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="inner-well">
+                    <table class="table table-hover table-striped table-bordered">
+                        <tbody>
+                        <? foreach ($this->tags as $tag): ?>
+                            <tr>
+                                <td>
+                                    <?
+                                    $checkboxElement = new Zend\Form\Element\Checkbox('tags[]');
+                                    //$checkboxElement->setChecked("checked");
+                                    $checkboxElement->setCheckedValue($tag->getId());
+                                    $checkboxElement->setUseHiddenElement(false);
+                                    ?>
+                                    <?= $this->formCheckbox($checkboxElement); ?>
+                                    <!--  --><?//= $this->formElement($this->form->get('tags[]')); ?>
+                                </td>
+                                <td><?= $tag->getName() ?></td>
+                            </tr>
+                        <? endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <?= $this->formElement($this->form->get('csrf')); ?>
     </div>
