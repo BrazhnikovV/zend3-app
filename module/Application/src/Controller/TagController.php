@@ -41,7 +41,7 @@ class TagController extends AbstractActionController
 
     /**
      * This is the default "index" action of the controller. It displays the
-     * Home page.
+     * index tags page.
      */
     public function indexAction()
     {
@@ -50,13 +50,11 @@ class TagController extends AbstractActionController
         $paginator   = PaginatorFilter::get($selectQuery);
         $paginator->setCurrentPageNumber($currentPage);
 
-        return new ViewModel([
-            'tags' => $paginator
-        ]);
+        return new ViewModel(['tags' => $paginator]);
     }
 
     /**
-     * This action displays a page allowing to add a new user.
+     * This action displays a page allowing to add a new tag.
      */
     public function addAction()
     {
@@ -80,7 +78,7 @@ class TagController extends AbstractActionController
     }
 
     /**
-     * The "edit" action displays a page allowing to edit user.
+     * The "edit" action displays a page allowing to edit tag.
      */
     public function editAction()
     {
@@ -114,7 +112,7 @@ class TagController extends AbstractActionController
     }
 
     /**
-     * This action deletes a permission.
+     * This action deletes a tags.
      */
     public function deleteAction()
     {
@@ -124,10 +122,10 @@ class TagController extends AbstractActionController
             return;
         }
 
-        $this->postService->deletePost($post);
-        $this->flashMessenger()->addSuccessMessage('Deleted the post.');
+        $this->tagService->deleteTag($post);
+        $this->flashMessenger()->addSuccessMessage('Deleted the tag.');
 
-        return $this->redirect()->toRoute('posts', ['action'=>'index']);
+        return $this->redirect()->toRoute('tags', ['action'=>'index']);
     }
 
     /**

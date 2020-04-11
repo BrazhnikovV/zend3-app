@@ -58,13 +58,13 @@ class TagService
 
     /**
      * deleteTag - удалить тег
-     * @param $post
+     * @param $tag - тег
      * @param $data - данные формы создания тега
      * @return mixed
      */
-    public function deleteTag($post) {
+    public function deleteTag($tag) {
 
-        $this->em->remove($post);
+        $this->em->remove($tag);
         $this->em->flush();
 
         return true;
