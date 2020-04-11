@@ -62,7 +62,7 @@ class Post
     protected $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Application\Entity\Tag", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="\Application\Entity\Tag", inversedBy="posts", fetch="EAGER")
      * @ORM\JoinTable(name="post_tag",
      *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
@@ -272,6 +272,19 @@ class Post
      */
     public function addTag($tag)
     {
-        $this->tags[] = $tag;
+        if ( !$this->tags->contains( $tag ) ) {
+             $this->tags[] = $tag;
+        }
+    }
+
+    /**
+     * Removes tag to this post.
+     * @param $tag
+     */
+    public function removeTag($tag)
+    {
+        if ( $this->tags->contains( $tag ) ) {
+             $this->tags->removeElement($tag);
+        }
     }
 }

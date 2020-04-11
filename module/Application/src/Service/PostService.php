@@ -72,6 +72,7 @@ class PostService
 
         PostEditFilter::setFormData($data);
         $post = PostEditFilter::get($post);
+        $post = $this->getTags($data["tags"],$post);
 
         $this->em->persist($post);
         $this->em->flush();
@@ -108,11 +109,18 @@ class PostService
      * @param $post
      * @return mixed
      */
-    private function getTags($tags,$post) {
+    private function getTags($tags, $post) {
         foreach ( $tags as $tag ) {
-            $post->addTag(
-                $this->em->getRepository(Tag::class)->findOneById((int)$tag)
-            );
+            $result = explode("-", $tag);
+            if ( count($result) == 2 ) {
+                $post->removeTag(
+                    $this->em->getRepository(Tag::class)->findOneById((int)$result[1])
+                );
+            } else {
+                $post->addTag(
+                    $this->em->getRepository(Tag::class)->findOneById((int)$tag)
+                );
+            }
         }
         return $post;
     }

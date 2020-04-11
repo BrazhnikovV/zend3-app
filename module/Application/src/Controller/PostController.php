@@ -92,6 +92,8 @@ class PostController extends AbstractActionController
     public function editAction()
     {
         $post = $this->checkInputDataIdAndEntity();
+        $tags = $this->tagService->findAllTags();
+
         if ( $post === false ) {
             $this->getResponse()->setStatusCode(404);
             return;
@@ -105,10 +107,7 @@ class PostController extends AbstractActionController
             $form->setData($data);
 
             if( $form->isValid() ) {
-
-                $data = $form->getData();
                 $this->postService->editPost($post, $data);
-
                 return $this->redirect()->toRoute('posts', ['action'=>'index']);
             }
         } else {
@@ -121,7 +120,7 @@ class PostController extends AbstractActionController
         }
 
         return new ViewModel(
-            array('post' => $post, 'form' => $form)
+            array('post' => $post, 'form' => $form, 'tags' => $tags)
         );
     }
 

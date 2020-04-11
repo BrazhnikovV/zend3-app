@@ -28,7 +28,7 @@ class Tag
 
     /**
      * @access protected
-     * @ORM\ManyToMany(targetEntity="\Application\Entity\Post", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="\Application\Entity\Post", mappedBy="tags", fetch="EXTRA_LAZY")
      */
     protected $posts;
 
