@@ -68,11 +68,11 @@ class PostService
      * @param $data - данные формы создания поста
      * @return mixed
      */
-    public function editPost($post, $data) {
+    public function editPost($post, $data, $allTags) {
 
         PostEditFilter::setFormData($data);
         $post = PostEditFilter::get($post);
-        $post = $this->getTags($data["tags"],$post);
+        $post = $this->bindTags($data["tags"], $post, $allTags);
 
         $this->em->persist($post);
         $this->em->flush();
@@ -104,24 +104,23 @@ class PostService
     }
 
     /**
-     * getTags
-     * @param $tags
+     * bindTags
+     * @param $selectedTags
      * @param $post
+     * @param $allTags
      * @return mixed
      */
-    private function getTags($tags, $post) {
-        foreach ( $tags as $tag ) {
-            $result = explode("-", $tag);
-            if ( count($result) == 2 ) {
-                $post->removeTag(
-                    $this->em->getRepository(Tag::class)->findOneById((int)$result[1])
-                );
-            } else {
-                $post->addTag(
-                    $this->em->getRepository(Tag::class)->findOneById((int)$tag)
-                );
+    private function bindTags($selectedTags, $post, $allTags) {
+
+        foreach ( $allTags as $tag ) {
+            $post->removeTag($tag);
+            foreach ( $selectedTags as $selectTag ) {
+                if ((int)$selectTag == $tag->getId() ) {
+                    $post->addTag($tag);
+                }
             }
         }
+
         return $post;
     }
 }

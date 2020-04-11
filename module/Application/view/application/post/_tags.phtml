@@ -1,0 +1,39 @@
+<?php use Zend\Form\Element\Checkbox;?>
+
+<div class="form-group">
+    <?= $this->formLabel($this->form->get('tags[]')); ?>
+    <div id="tags-well" class="well">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+            </tr>
+            </thead>
+        </table>
+        <div class="inner-well">
+            <table class="table table-hover table-striped table-bordered">
+                <tbody>
+                <? $CurrTags = $this->post->getTags();?>
+                <? foreach ($this->tags as $tag): ?>
+                    <tr>
+                        <td>
+                            <? $checkboxElement = new Checkbox('tags[]');?>
+                            <? $checkboxElement->setUseHiddenElement(false); ?>
+                            <? $checkboxElement->setCheckedValue($tag->getId());?>
+                            <? foreach ( $CurrTags as $currTag ) {
+                                if ( $currTag->getId() == $tag->getId()) {
+                                    $checkboxElement->setChecked(true);
+                                }
+                            } ?>
+                            <?= $this->formCheckbox($checkboxElement); ?>
+                        </td>
+                        <td><?= $tag->getName() ?></td>
+                    </tr>
+                <? endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?= $this->formElementErrors($this->form->get('tags[]')); ?>
+</div>
