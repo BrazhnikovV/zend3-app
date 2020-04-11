@@ -76,7 +76,7 @@ class PostController extends AbstractActionController
             $form->setData($data);
             if( $form->isValid() ) {
 
-                $data = $form->getData();
+                //$data = $form->getData();
                 $this->postService->addPost($data);
 
                 return $this->redirect()->toRoute('posts', ['action'=>'index']);

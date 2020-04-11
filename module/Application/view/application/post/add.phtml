@@ -34,7 +34,8 @@ if (!$this->access('post.manage')) {
 
 $this->form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
 $this->form->prepare();
-?>
+
+use Zend\Form\Element\Checkbox; ?>
 
 <h1>Add Post</h1>
 
@@ -80,14 +81,11 @@ $this->form->prepare();
                         <? foreach ($this->tags as $tag): ?>
                             <tr>
                                 <td>
-                                    <?
-                                    $checkboxElement = new Zend\Form\Element\Checkbox('tags[]');
-                                    //$checkboxElement->setChecked("checked");
-                                    $checkboxElement->setCheckedValue($tag->getId());
-                                    $checkboxElement->setUseHiddenElement(false);
-                                    ?>
+                                    <? $checkboxElement = new Checkbox('tags[]');?>
+                                    <? $checkboxElement->setUseHiddenElement(false); ?>
+                                    <? $checkboxElement->setCheckedValue($tag->getId());?>
+
                                     <?= $this->formCheckbox($checkboxElement); ?>
-                                    <!--  --><?//= $this->formElement($this->form->get('tags[]')); ?>
                                 </td>
                                 <td><?= $tag->getName() ?></td>
                             </tr>
@@ -96,6 +94,7 @@ $this->form->prepare();
                     </table>
                 </div>
             </div>
+            <?= $this->formElementErrors($this->form->get('tags[]')); ?>
         </div>
         <?= $this->formElement($this->form->get('csrf')); ?>
     </div>

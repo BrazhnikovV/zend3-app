@@ -172,5 +172,14 @@ class PostForm extends Form
                 ['name'=>'InArray', 'options'=>['haystack'=>[1, 2]]]
             ],
         ]);
+
+        // Add input for "status" field
+        $inputFilter->add([
+            'name'     => 'tags[]',
+            'required' => false,
+            'filters'  => [
+                ['name' => 'StringTrim'],
+            ],
+        ]);
     }
 }

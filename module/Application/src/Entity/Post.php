@@ -213,6 +213,7 @@ class Post
     /**
      * setDateUpdated - Устанавливает дату обновления данного поста.
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function setDateUpdated()
     {

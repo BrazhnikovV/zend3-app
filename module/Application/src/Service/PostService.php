@@ -2,6 +2,7 @@
 
 namespace Application\Service;
 
+use Application\Entity\Tag;
 use User\Entity\User;
 use Application\Entity\Post;
 use Application\Filter\post\PostAddFilter;
@@ -52,9 +53,8 @@ class PostService
     public function addPost($data) {
 
         $post = PostAddFilter::get($data);
-
-        $user = $this->getCurrentUser();
-        $post->setUser($user);
+        $post->setUser($this->getCurrentUser());
+        $post = $this->getTags($data["tags"],$post);
 
         $this->em->persist($post);
         $this->em->flush();
@@ -100,5 +100,20 @@ class PostService
     private function getCurrentUser() {
         $email = $this->authService->getIdentity();
         return $this->em->getRepository(User::class)->findOneByEmail($email);
+    }
+
+    /**
+     * getTags
+     * @param $tags
+     * @param $post
+     * @return mixed
+     */
+    private function getTags($tags,$post) {
+        foreach ( $tags as $tag ) {
+            $post->addTag(
+                $this->em->getRepository(Tag::class)->findOneById((int)$tag)
+            );
+        }
+        return $post;
     }
 }
