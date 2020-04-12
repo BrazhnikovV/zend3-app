@@ -113,6 +113,7 @@ class Permission
     /**
      * setDateUpdated - Устанавливает дату обновления данной привилегии.
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function setDateUpdated()
     {

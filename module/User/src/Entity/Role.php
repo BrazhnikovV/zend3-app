@@ -141,6 +141,7 @@ class Role
     /**
      * setDateUpdated - Устанавливает дату обновления данной роли.
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function setDateUpdated()
     {
