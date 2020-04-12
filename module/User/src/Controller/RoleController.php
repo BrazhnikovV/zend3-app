@@ -1,17 +1,18 @@
 <?php
 namespace User\Controller;
 
+use User\Entity\Role;
+use User\Form\RoleForm;
+use User\Entity\Permission;
+use Zend\View\Model\ViewModel;
+use User\Form\RolePermissionsForm;
 use Common\Filter\PaginatorFilter;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use User\Entity\Role;
-use User\Entity\Permission;
-use User\Form\RoleForm;
-use User\Form\RolePermissionsForm;
 
 /**
- * This controller is responsible for role management (adding, editing,
+ * Class RoleController - This controller is responsible for role management (adding, editing,
  * viewing, deleting).
+ * @package User\Controller
  */
 class RoleController extends AbstractActionController
 {

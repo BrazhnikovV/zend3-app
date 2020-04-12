@@ -1,15 +1,17 @@
 <?php
 namespace User\Controller;
 
-use Common\Filter\PaginatorFilter;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use User\Entity\Permission;
 use User\Form\PermissionForm;
+use Zend\View\Model\ViewModel;
+use Common\Filter\PaginatorFilter;
+use Zend\Mvc\Controller\AbstractActionController;
+
 
 /**
- * This controller is responsible for permission management (adding, editing,
+ * Class PermissionController - This controller is responsible for permission management (adding, editing,
  * viewing, deleting).
+ * @package User\Controller
  */
 class PermissionController extends AbstractActionController
 {
