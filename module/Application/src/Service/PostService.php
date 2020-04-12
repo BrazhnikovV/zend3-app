@@ -2,11 +2,11 @@
 
 namespace Application\Service;
 
-use Application\Entity\Tag;
 use User\Entity\User;
 use Application\Entity\Post;
 use Application\Filter\post\PostAddFilter;
 use Application\Filter\post\PostEditFilter;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class PostService
@@ -47,37 +47,43 @@ class PostService
 
     /**
      * addPost - создать новый пост
-     * @param $data - данные формы создания поста
+     * @param $formData - данные формы создания поста
+     * @param $allTags - все теги
      * @return mixed
      */
-    public function addPost($data) {
+    public function addPost($formData, $allTags) {
 
-        $post = PostAddFilter::get($data);
-        $post->setUser($this->getCurrentUser());
-        $post = $this->getTags($data["tags"],$post);
+        $selTags = $formData["tags"];
 
-        $this->em->persist($post);
+        $postEntity = PostAddFilter::get($formData);
+        $postEntity->setUser($this->getCurrentUser());
+        $postEntity->setTags($this->getAttachedTags($selTags, $allTags));
+
+        $this->em->persist($postEntity);
         $this->em->flush();
 
-        return $post;
+        return $postEntity;
     }
 
     /**
      * editPost - обновить пост
-     * @param $post
-     * @param $data - данные формы создания поста
+     * @param $postEntity - сущность поста(полученная по id)
+     * @param $formData - данные формы редактирования поста
+     * @param $allTags - все теги
      * @return mixed
      */
-    public function editPost($post, $data, $allTags) {
+    public function editPost($postEntity, $formData, $allTags) {
 
-        PostEditFilter::setFormData($data);
-        $post = PostEditFilter::get($post);
-        $post = $this->bindTags($data["tags"], $post, $allTags);
+        $selTags = $formData["tags"];
 
-        $this->em->persist($post);
+        PostEditFilter::setFormData($formData);
+        $postEntity = PostEditFilter::get($postEntity);
+        $postEntity->setTags($this->getAttachedTags($selTags, $allTags));
+
+        $this->em->persist($postEntity);
         $this->em->flush();
 
-        return $post;
+        return $postEntity;
     }
 
     /**
@@ -95,7 +101,7 @@ class PostService
     }
 
     /**
-     * getCurrentUser
+     * getCurrentUser - получить авторизованного пользователя
      * @return mixed
      */
     private function getCurrentUser() {
@@ -104,23 +110,23 @@ class PostService
     }
 
     /**
-     * bindTags
+     * getAttachedTags
      * @param $selectedTags
-     * @param $post
      * @param $allTags
-     * @return mixed
+     * @return array|ArrayCollection
      */
-    private function bindTags($selectedTags, $post, $allTags) {
+    private function getAttachedTags($selectedTags, $allTags) {
+
+        $tags = new ArrayCollection();
 
         foreach ( $allTags as $tag ) {
-            $post->removeTag($tag);
             foreach ( $selectedTags as $selectTag ) {
                 if ((int)$selectTag == $tag->getId() ) {
-                    $post->addTag($tag);
+                    $tags[] = $tag;
                 }
             }
         }
 
-        return $post;
+        return $tags;
     }
 }

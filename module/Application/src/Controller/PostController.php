@@ -76,9 +76,7 @@ class PostController extends AbstractActionController
             $form->setData($data);
             if( $form->isValid() ) {
 
-                //$data = $form->getData();
-                $this->postService->addPost($data);
-
+                $this->postService->addPost($data, $tags);
                 return $this->redirect()->toRoute('posts', ['action'=>'index']);
             }
         }
@@ -92,20 +90,18 @@ class PostController extends AbstractActionController
     public function editAction()
     {
         $post = $this->checkInputDataIdAndEntity();
-        $tags = $this->tagService->findAllTags();
-
         if ( $post === false ) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
 
+        $tags = $this->tagService->findAllTags();
         $form = new PostForm('update', $this->em, $post);
 
         if ( $this->getRequest()->isPost() ) {
 
             $postData = $this->params()->fromPost();
             $form->setData($postData);
-
             if( $form->isValid() ) {
                 $this->postService->editPost($post, $postData, $tags);
                 return $this->redirect()->toRoute('posts', ['action'=>'index']);
@@ -152,6 +148,7 @@ class PostController extends AbstractActionController
             return false;
         }
 
+        // !fixme: сделать метод проверки существования поста по id с минимальным набором полей
         $post = $this->em->getRepository(Post::class)->find($id);
         if ( $post == null ){
             $this->getResponse()->setStatusCode(404);

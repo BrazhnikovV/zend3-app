@@ -267,24 +267,11 @@ class Post
     }
 
     /**
-     * Adds a new tag to this post.
-     * @param $tag
+     * Adds a new tags to this post.
+     * @param ArrayCollection $tags
      */
-    public function addTag($tag)
+    public function setTags( ArrayCollection $tags )
     {
-        if ( !$this->tags->contains( $tag ) ) {
-             $this->tags[] = $tag;
-        }
-    }
-
-    /**
-     * Removes tag to this post.
-     * @param $tag
-     */
-    public function removeTag($tag)
-    {
-        if ( $this->tags->contains( $tag ) ) {
-             $this->tags->removeElement($tag);
-        }
+        $this->tags = $tags;
     }
 }
