@@ -20,10 +20,11 @@ class NavManagerFactory
 
         $viewHelperManager = $container->get('ViewHelperManager');
         $urlHelper = $viewHelperManager->get('url');
+        $translate = $viewHelperManager->get('translate');
         $rbacManager = $container->get(RbacManager::class);
         // Get language settings from session.
         $containerI18n = $container->get('I18nSessionContainer');
 
-        return new NavManager($authService, $urlHelper, $rbacManager, $containerI18n);
+        return new NavManager($authService, $urlHelper, $rbacManager, $containerI18n, $translate);
     }
 }

@@ -4,13 +4,14 @@ namespace Application\View\Helper;
 use Zend\View\Helper\AbstractHelper;
 
 /**
- * This view helper class displays a menu bar.
+ * Class Menu - This view helper class displays a menu bar.
+ * @package Application\View\Helper
  */
 class Menu extends AbstractHelper
 {
     /**
-     * Menu items array.
-     * @var array
+     * @access protected
+     * @var array $items - Menu items array.
      */
     protected $items = [];
 
@@ -21,8 +22,8 @@ class Menu extends AbstractHelper
     protected $activeItemId = '';
 
     /**
-     * Constructor.
-     * @param $items array - Menu items.
+     * Menu constructor.
+     * @param array $items - Menu items.
      */
     public function __construct($items=[])
     {

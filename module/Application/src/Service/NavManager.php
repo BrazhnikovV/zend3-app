@@ -32,6 +32,12 @@ class NavManager
     private $rbacManager;
 
     /**
+     * RBAC manager.
+     * @var User\Service\RbacManager
+     */
+    private $translate;
+
+    /**
      * Constructs the service.
      */
     /**
@@ -41,12 +47,13 @@ class NavManager
      * @param $rbacManager
      * @param $lang string - текущий язык приложения
      */
-    public function __construct($authService, $urlHelper, $rbacManager, $lang)
+    public function __construct($authService, $urlHelper, $rbacManager, $lang, $translate)
     {
         $this->authService = $authService;
         $this->urlHelper = $urlHelper;
         $this->rbacManager = $rbacManager;
         $this->lang  = $lang;
+        $this->translate = $translate;
     }
 
     /**
@@ -55,31 +62,32 @@ class NavManager
     public function getMenuItems()
     {
         $url = $this->urlHelper;
+        $translate = $this->translate;
         $items = [];
 
         $items[] = [
             'id' => 'home',
-            'label' => 'Home',
+            'label' => $translate('Home'),
             'link'  => $url('home'),
             'icon'  => 'glyphicon-home'
         ];
 
         $items[] = [
             'id' => 'about',
-            'label' => 'About',
+            'label' => $translate('About'),
             'link'  => $url('about'),
             'icon'  => 'glyphicon-question-sign'
         ];
 
         $items[] = [
             'id' => 'posts',
-            'label' => 'Posts',
+            'label' => $translate('Posts'),
             'link'  => $url('posts'),
             'icon'  => 'glyphicon-list'
         ];
         $items[] = [
             'id' => 'tags',
-            'label' => 'Tags',
+            'label' => $translate('Tags'),
             'link'  => $url('tags'),
             'icon'  => 'glyphicon-list'
         ];
@@ -112,7 +120,7 @@ class NavManager
             ];
             $items[] = [
                 'id' => 'login',
-                'label' => 'Sign in',
+                'label' => $translate('Sign in'),
                 'link'  => $url('login'),
                 'float' => 'right',
                 'icon'  => "glyphicon-lock"
@@ -127,17 +135,17 @@ class NavManager
                 "dropdown" => [
                     [
                         'id' => 'eng',
-                        'label' => 'English',
+                        'label' => $translate('English'),
                         'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'en_GB']])
                     ],
                     [
                         'id' => 'rus',
-                        'label' => 'Russian',
+                        'label' => $translate('Russian'),
                         'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'ru_RU']])
                     ],
                     [
                         'id' => 'esp',
-                        'label' => 'Spain',
+                        'label' => $translate('Spain'),
                         'link' => $url('application', ['action'=>'language'],['query' => ['l' => 'es_ES']])
                     ]
                 ]
@@ -148,7 +156,7 @@ class NavManager
             if ($this->rbacManager->isGranted(null, 'user.manage')) {
                 $adminDropdownItems[] = [
                             'id' => 'users',
-                            'label' => 'Manage Users',
+                            'label' =>  $translate('Manage Users'),
                             'link' => $url('users'),
                             'icon'  => "glyphicon-unlock"
                         ];
@@ -157,7 +165,7 @@ class NavManager
             if ($this->rbacManager->isGranted(null, 'permission.manage')) {
                 $adminDropdownItems[] = [
                             'id' => 'permissions',
-                            'label' => 'Manage Permissions',
+                            'label' => $translate('Manage Permissions'),
                             'link' => $url('permissions')
                         ];
             }
@@ -165,7 +173,7 @@ class NavManager
             if ($this->rbacManager->isGranted(null, 'role.manage')) {
                 $adminDropdownItems[] = [
                             'id' => 'roles',
-                            'label' => 'Manage Roles',
+                            'label' => $translate('Manage Roles'),
                             'link' => $url('roles')
                         ];
             }
@@ -173,7 +181,7 @@ class NavManager
             if (count($adminDropdownItems)!=0) {
                 $items[] = [
                     'id' => 'admin',
-                    'label' => 'Admin',
+                    'label' => $translate('Admin'),
                     'dropdown' => $adminDropdownItems
                 ];
             }
@@ -185,12 +193,12 @@ class NavManager
                 'dropdown' => [
                     [
                         'id' => 'settings',
-                        'label' => 'Settings',
+                        'label' =>  $translate('Settings'),
                         'link' => $url('application', ['action'=>'settings'])
                     ],
                     [
                         'id' => 'logout',
-                        'label' => 'Sign out',
+                        'label' => $translate('Sign out'),
                         'link' => $url('logout')
                     ],
                 ]

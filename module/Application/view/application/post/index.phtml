@@ -4,13 +4,13 @@ $this->headTitle('Welcome');
 $this->mainMenu()->setActiveItemId('posts');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home'=>$this->url('home'),
-    'Posts'=>$this->url('posts'),
+    $this->translate('Home')  => $this->url('home'),
+    $this->translate('Posts') => $this->url('posts'),
 ]);
 ?>
 <div class="row">
     <div class="col-md-12">
-        <h1>Manage Posts</h1>
+        <h1><?= $this->translate('Manage Posts');?></h1>
 
         <?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
         <?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
@@ -18,7 +18,8 @@ $this->pageBreadcrumbs()->setItems([
 
         <p>
             <a class="btn btn-default" href="<?= $this->url('posts', ['action'=>'add']); ?>">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Post
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <?= $this->translate('New Post');?>
             </a>
         </p>
     </div>
@@ -27,12 +28,12 @@ $this->pageBreadcrumbs()->setItems([
 
             <tr>
                 <th class="column-id">ID</th>
-                <th class="column-author crop">Author</th>
-                <th class="column-title crop">Title</th>
-                <th class="column-status">Status</th>
-                <th class="column-create">Date Created</th>
-                <th class="column-create">Date Updated</th>
-                <th class="column-actions">Actions</th>
+                <th class="column-author crop"><?= $this->translate('Author')?></th>
+                <th class="column-title crop"><?= $this->translate('Title')?></th>
+                <th class="column-status"><?= $this->translate('Status')?></th>
+                <th class="column-create"><?= $this->translate('Date Created')?></th>
+                <th class="column-create"><?= $this->translate('Date Updated')?></th>
+                <th class="column-actions"><?= $this->translate('Actions')?></th>
             </tr>
 
             <?php foreach ($this->posts as $post): ?>
