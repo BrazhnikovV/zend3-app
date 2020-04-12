@@ -150,7 +150,7 @@ form ul li {
 /* ======================= Columns Table =========================*/
 .column-id {
     text-align: center;
-    width: 30px;
+    width: 50px;
 }
 
 .column-title {
@@ -160,7 +160,17 @@ form ul li {
 
 .column-author {
     text-align: center;
+    width: 80px;
+}
+.column-name {
+    text-align: center;
+    width: 80px;
+}
+.column-name > a {
     width: 60px;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
 }
 
 .column-actions {

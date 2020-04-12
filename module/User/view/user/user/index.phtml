@@ -23,7 +23,7 @@ $this->pageBreadcrumbs()->setItems([
 
             <tr>
                 <th class="column-id">ID</th>
-                <th>E-mail</th>
+                <th class="column-name">E-mail</th>
                 <th>Full Name</th>
                 <th>Role(s)</th>
                 <th class="column-status">Status</th>
@@ -35,8 +35,8 @@ $this->pageBreadcrumbs()->setItems([
 
                 <tr>
                     <td class="column-id"><?= $this->escapeHtml($user->getId()); ?></td>
-                    <td>
-                        <a href="<?= $this->url('users', ['action'=>'view', 'id'=>$user->getId()]); ?>">
+                    <td class="column-name">
+                        <a class="crop" title="<?=$user->getEmail();?>" href="<?= $this->url('users', ['action'=>'view', 'id'=>$user->getId()]); ?>">
                             <?= $this->escapeHtml($user->getEmail()); ?>
                         </a>
                     </td>
