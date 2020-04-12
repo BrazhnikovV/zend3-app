@@ -29,7 +29,7 @@ $this->pageBreadcrumbs()->setItems([
                 <th class="column-id">ID</th>
                 <th>Name</th>
                 <th class="column-title crop">Description</th>
-                <th>Date Created</th>
+                <th class="column-create">Date Created</th>
                 <th class="column-actions">Actions</th>
             </tr>
 
@@ -44,7 +44,7 @@ $this->pageBreadcrumbs()->setItems([
                     </td>
                     <td class="column-title crop"><?= $this->escapeHtml($permission->getDescription()); ?></a>
                     </td>
-                    <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>
+                    <td class="column-create"><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>
                     <td class="btn-actions-mini column-actions">
                         <nobr>
                             <a class="btn btn-info" href="<?= $this->url('permissions',
