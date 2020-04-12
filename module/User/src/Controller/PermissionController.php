@@ -14,24 +14,33 @@ use User\Form\PermissionForm;
 class PermissionController extends AbstractActionController
 {
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @access private
+     * @var Doctrine\ORM\EntityManager $entityManager - Entity manager.
      */
     private $entityManager;
 
     /**
-     * Permission manager.
-     * @var User\Service\PermissionManager
+     * @access private
+     * @var User\Service\PermissionManager $permissionManager - Permission manager.
      */
     private $permissionManager;
 
     /**
-     * Constructor.
+     * @access private
+     * @var Common\Filter\PaginatorFilter $paginatorFilter - filter .
+     */
+    private $paginatorFilter;
+
+    /**
+     * PermissionController constructor.
+     * @param $entityManager - менеджер сущностей
+     * @param $permissionManager - менеджер привелегий
      */
     public function __construct($entityManager, $permissionManager)
     {
         $this->entityManager = $entityManager;
         $this->permissionManager = $permissionManager;
+        $this->paginatorFilter = new PaginatorFilter();
     }
 
     /**
@@ -42,7 +51,7 @@ class PermissionController extends AbstractActionController
     {
         $currentPage = $this->params()->fromQuery('page', 1);
         $selectQuery = $this->entityManager->getRepository(Permission::class)->findAllPermissions();
-        $paginator   = PaginatorFilter::get($selectQuery);
+        $paginator   = $this->paginatorFilter->filter($selectQuery);
         $paginator->setCurrentPageNumber($currentPage);
 
         return new ViewModel([

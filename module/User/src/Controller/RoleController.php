@@ -16,24 +16,33 @@ use User\Form\RolePermissionsForm;
 class RoleController extends AbstractActionController
 {
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @access private
+     * @var Doctrine\ORM\EntityManager $entityManager - $entityManager
      */
     private $entityManager;
 
     /**
-     * Role manager.
-     * @var User\Service\RoleManager
+     * @access private
+     * @var User\Service\RoleManager $roleManager - Role manager.
      */
     private $roleManager;
 
     /**
-     * Constructor.
+     * @access private
+     * @var Common\Filter\PaginatorFilter $paginatorFilter - filter .
+     */
+    private $paginatorFilter;
+
+    /**
+     * RoleController constructor.
+     * @param $entityManager - менеджер сущностей
+     * @param $roleManager - сервис постов
      */
     public function __construct($entityManager, $roleManager)
     {
         $this->entityManager = $entityManager;
         $this->roleManager = $roleManager;
+        $this->paginatorFilter = new PaginatorFilter();
     }
 
     /**
@@ -44,7 +53,7 @@ class RoleController extends AbstractActionController
     {
         $currentPage = $this->params()->fromQuery('page', 1);
         $selectQuery = $this->entityManager->getRepository(Role::class)->findAllRoles();
-        $paginator   = PaginatorFilter::get($selectQuery);
+        $paginator   = $this->paginatorFilter->filter($selectQuery);
         $paginator->setCurrentPageNumber($currentPage);
 
         return new ViewModel([

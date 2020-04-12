@@ -5,7 +5,6 @@ namespace Application\Controller;
 use Application\Entity\Tag;
 use Application\Form\TagForm;
 use Zend\View\Model\ViewModel;
-use Application\Form\PostForm;
 use Common\Filter\PaginatorFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -16,17 +15,23 @@ use Zend\Mvc\Controller\AbstractActionController;
 class TagController extends AbstractActionController
 {
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\em
+     * @access private
+     * @var Doctrine\ORM\EntityManager $em - Entity manager.
      */
     private $em;
 
 
     /**
-     * Servise tag.
-     * @var Application\Service\TagService
+     * @access private
+     * @var Application\Service\TagService $tagService - Servise tag.
      */
     private $tagService;
+
+    /**
+     * @access private
+     * @var Common\Filter\PaginatorFilter $paginatorFilter - filter .
+     */
+    private $paginatorFilter;
 
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
@@ -35,8 +40,9 @@ class TagController extends AbstractActionController
      */
     public function __construct($entityManager, $tagService)
     {
-       $this->em = $entityManager;
-       $this->tagService = $tagService;
+        $this->em = $entityManager;
+        $this->tagService = $tagService;
+        $this->paginatorFilter = new PaginatorFilter();
     }
 
     /**
@@ -47,7 +53,7 @@ class TagController extends AbstractActionController
     {
         $currentPage = $this->params()->fromQuery('page', 1);
         $selectQuery = $this->em->getRepository(Tag::class)->findAllTags();
-        $paginator   = PaginatorFilter::get($selectQuery);
+        $paginator   = $this->paginatorFilter->filter($selectQuery);
         $paginator->setCurrentPageNumber($currentPage);
 
         return new ViewModel(['tags' => $paginator]);

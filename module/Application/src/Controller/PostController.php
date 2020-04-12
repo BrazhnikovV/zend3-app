@@ -35,16 +35,23 @@ class PostController extends AbstractActionController
     private $tagService;
 
     /**
+     * @access private
+     * @var Common\Filter\PaginatorFilter $paginatorFilter - filter .
+     */
+    private $paginatorFilter;
+
+    /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      * @param $entityManager - менеджер сущностей
      * @param $postService - сервис постов
-     * @param $tagService -
+     * @param $tagService - сервис тегов
      */
     public function __construct($entityManager, $postService, $tagService)
     {
         $this->em = $entityManager;
         $this->postService = $postService;
         $this->tagService  = $tagService;
+        $this->paginatorFilter = new PaginatorFilter();
     }
 
     /**
@@ -55,7 +62,7 @@ class PostController extends AbstractActionController
     {
         $currentPage = $this->params()->fromQuery('page', 1);
         $selectQuery = $this->em->getRepository(Post::class)->findAllPosts();
-        $paginator   = PaginatorFilter::get($selectQuery);
+        $paginator   = $this->paginatorFilter->filter($selectQuery);
         $paginator->setCurrentPageNumber($currentPage);
 
         return new ViewModel(['posts' => $paginator]);
@@ -146,7 +153,6 @@ class PostController extends AbstractActionController
             return false;
         }
 
-        // !fixme: сделать метод проверки существования поста по id с минимальным набором полей
         $post = $this->em->getRepository(Post::class)->find($id);
         if ( $post == null ){
             $this->getResponse()->setStatusCode(404);
