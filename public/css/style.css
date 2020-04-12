@@ -104,27 +104,15 @@ form ul li {
 .table > tbody > tr > td {
     vertical-align: inherit;
 }
-.table > tbody > tr > td:first-child,
-.table > tbody > tr > th:first-child,
-.table > tbody > tr > td:last-child,
-.table > tbody > tr > th:last-child
-{
-    text-align: center;
-}
+
 .table > tbody > tr:first-child {
     background-color: #e8e8e8;
-}
-
-.table > tbody > tr > td:not(:first-child),
-.table > tbody > tr > th:not(:first-child)
-{
-    padding-left: 10px;
 }
 
 .table > tbody > tr > td:not(:first-child) {
     color: #696868;
 }
-
+/* ======================= Tags Table =========================*/
 #tags-well {
     margin-bottom: 5px;
 }
@@ -157,4 +145,41 @@ form ul li {
 
 #tags-well .table  > tbody > tr:first-child {
     background-color: #f9f9f9;
+}
+
+/* ======================= Columns Table =========================*/
+.column-id {
+    text-align: center;
+    width: 30px;
+}
+
+.column-title {
+    max-width: 400px;
+    padding-left: 10px;
+}
+
+.column-author {
+    text-align: center;
+    width: 60px;
+}
+
+.column-actions {
+    text-align: center;
+    width: 70px;
+}
+
+.column-status {
+    text-align: center;
+    width: 60px;
+}
+
+.column-create {
+    text-align: center;
+    width: 160px;
+}
+
+.crop {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

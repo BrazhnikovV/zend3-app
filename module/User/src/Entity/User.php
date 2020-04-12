@@ -240,6 +240,7 @@ class User
     /**
      * setDateUpdated - Устанавливает дату обновления данного пользователя.
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function setDateUpdated()
     {

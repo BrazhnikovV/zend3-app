@@ -26,31 +26,31 @@ $this->pageBreadcrumbs()->setItems([
         <table class="table table-striped table-condensed table-bordered min-width-table">
 
             <tr>
-                <th>ID</th>
-                <th>Author</th>
-                <th>Title</th>
-                <th>Date Created</th>
-                <th>Date Updated</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th class="column-id">ID</th>
+                <th class="column-author crop">Author</th>
+                <th class="column-title crop">Title</th>
+                <th class="column-status">Status</th>
+                <th class="column-create">Date Created</th>
+                <th class="column-create">Date Updated</th>
+                <th class="column-actions">Actions</th>
             </tr>
 
             <?php foreach ($this->posts as $post): ?>
 
                 <tr>
-                    <td>
+                    <td class="column-id">
                         <span><?= $this->escapeHtml($post->getId()); ?></span>
                     </td>
-                    <td>
+                    <td class="column-author crop">
                         <span><?= $this->escapeHtml($post->getUser()->getFullName()); ?></span>
                     </td>
-                    <td>
+                    <td class="column-title crop">
                         <span><?= $this->escapeHtml($post->getTitle()); ?></span>
                     </td>
-                    <td><nobr><?= $this->escapeHtml($post->getDateCreated()); ?></nobr></td>
-                    <td><nobr><?= $this->escapeHtml($post->getDateUpdated()); ?></nobr></td>
-                    <td><span><?= $this->escapeHtml($post->getStatusAsString()); ?></span></td>
-                    <td class="btn-actions-mini"><nobr>
+                    <td class="column-status"><span><?= $this->escapeHtml($post->getStatusAsString()); ?></span></td>
+                    <td class="column-create"><nobr><?= $this->escapeHtml($post->getDateCreated()); ?></nobr></td>
+                    <td class="column-create"><nobr><?= $this->escapeHtml($post->getDateUpdated()); ?></nobr></td>
+                    <td class="btn-actions-mini column-actions"><nobr>
                         <a class="btn btn-info" href="<?= $this->url('posts',
                             ['action'=>'edit', 'id'=>$post->getId()]); ?>">
                             <span class="glyphicon glyphicon-pencil" ></span>
