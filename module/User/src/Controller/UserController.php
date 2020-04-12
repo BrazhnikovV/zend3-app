@@ -1,43 +1,50 @@
 <?php
 namespace User\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
-use Application\Entity\Post;
 use User\Entity\User;
 use User\Entity\Role;
 use User\Form\UserForm;
-use User\Form\PasswordChangeForm;
+use Zend\View\Model\ViewModel;
 use User\Form\PasswordResetForm;
+use User\Form\PasswordChangeForm;
+use Common\Filter\PaginatorFilter;
+use Zend\Mvc\Controller\AbstractActionController;
 
 /**
- * This controller is responsible for user management (adding, editing,
+ * Class UserController - This controller is responsible for user management (adding, editing,
  * viewing users and changing user's password).
+ * @package User\Controller
  */
 class UserController extends AbstractActionController
 {
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @access private
+     * @var Doctrine\ORM\EntityManager $entityManager - Entity manager.
      */
     private $entityManager;
 
     /**
-     * User manager.
-     * @var User\Service\UserManager
+     * @access private
+     * @var User\Service\UserManager $userManager - User manager.
      */
     private $userManager;
 
     /**
-     * Constructor.
+     * @access private
+     * @var Common\Filter\PaginatorFilter $paginatorFilter - filter .
+     */
+    private $paginatorFilter;
+
+    /**
+     * UserController constructor.
+     * @param $entityManager - менеджер сущностей
+     * @param $userManager - сервис пользователей
      */
     public function __construct($entityManager, $userManager)
     {
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
+        $this->paginatorFilter = new PaginatorFilter();
     }
 
     /**
@@ -46,20 +53,16 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        $page = $this->params()->fromQuery('page', 1);
         // Access control.
         if (!$this->access('user.manage')) {
             $this->getResponse()->setStatusCode(401);
             return;
         }
 
-        $query = $this->entityManager->getRepository(User::class)
-                ->findAllUsers();
-
-        $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
-        $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(3);
-        $paginator->setCurrentPageNumber($page);
+        $currentPage = $this->params()->fromQuery('page', 1);
+        $selectQuery = $this->entityManager->getRepository(User::class)->findAllUsers();
+        $paginator   = $this->paginatorFilter->filter($selectQuery);
+        $paginator->setCurrentPageNumber($currentPage);
 
         return new ViewModel([
             'users' => $paginator

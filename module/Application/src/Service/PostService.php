@@ -21,34 +21,34 @@ class PostService
     private $em;
 
     /**
-     * Auth service.
-     * @var Zend\Authentication\Authentication
+     * @access private
+     * @var Zend\Authentication\Authentication $authService - Auth service.
      */
     private $authService;
 
     /**
-     * Tag service.
-     * @var Application\Service\TagService
+     * @access private
+     * @var Application\Service\TagService $tagService - Tag service.
      */
     private $tagService;
 
     /**
-     * Post filter.
-     * @var Application\Filter\PostAddFilter
+     * @access private
+     * @var Application\Filter\PostAddFilter $postEditFilter - Post filter.
      */
     private $postEditFilter;
 
     /**
-     * Post filter.
-     * @var Application\Filter\PostEditFilter
+     * @access private
+     * @var Application\Filter\PostEditFilter $postAddFilter - Post filter.
      */
     private $postAddFilter;
 
     /**
      * Constructor.
      * @param $entityManager - менеджер сущностей
-     * @param $authService
-     * @param $tagService
+     * @param $authService - сервис аутентификации
+     * @param $tagService - сервис тегов
      */
     public function __construct($entityManager, $authService, $tagService)
     {
