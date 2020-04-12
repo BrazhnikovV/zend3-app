@@ -3,6 +3,8 @@
 namespace Application\Filter\post;
 
 use Zend\Filter\AbstractFilter;
+use Application\common\TagsBindHelper;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class PostEditFilter
@@ -12,37 +14,45 @@ class PostEditFilter extends AbstractFilter
 {
     /**
      * @access private
-     * @var Application\Form\PostForm $formData - данные формы
+     * @var ArrayCollection $allTags - данные формы
      */
-    static private $formData;
+    private $allTags = [];
 
     /**
-     * @access public
-     * @param $value - фильтруемые данные
-     * @return mixed
+     * @access private
+     * @var array - данные формы
      */
-    static public function get($value)
-    {
-        return self::filter($value);
-    }
+    private $formData;
+
 
     /**
      * @inheritDoc
      */
     public function filter($value)
     {
-        $value->setTitle(self::$formData['title']);
-        $value->setContent(self::$formData['content']);
-        $value->setStatus(self::$formData['status']);
+        $value->setTitle($this->formData['title']);
+        $value->setContent($this->formData['content']);
+        $value->setStatus($this->formData['status']);
+        $value->setTags(
+            TagsBindHelper::getAttachedTags($this->formData['tags'], $this->allTags)
+        );
 
         return $value;
+    }
+
+    /**
+     * setAllTags
+     * @param $tags
+     */
+    public function setAllTags($tags) {
+        $this->allTags = $tags;
     }
 
     /**
      * setFormData
      * @param $data
      */
-    static public function setFormData($data) {
-        self::$formData = $data;
+    public function setFormData($data) {
+        $this->formData = $data;
     }
 }

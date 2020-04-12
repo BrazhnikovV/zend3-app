@@ -3,6 +3,7 @@
 namespace Application\Service\Factory;
 
 use Application\Service\PostService;
+use Application\Service\TagService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
@@ -22,7 +23,9 @@ class PostServiceFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        $authService = $container->get(\Zend\Authentication\AuthenticationService::class);
-        return new PostService($entityManager, $authService);
+        $authService   = $container->get(\Zend\Authentication\AuthenticationService::class);
+        $tagService    = $container->get(TagService::class);
+
+        return new PostService($entityManager, $authService, $tagService);
     }
 }

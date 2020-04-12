@@ -3,9 +3,12 @@ $this->headTitle('Edit Post');
 $this->mainMenu()->setActiveItemId('posts');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home'=>$this->url('home'),
-    'Manage Posts'=>$this->url('posts'),
-    'Edit Post'=>$this->url('posts', ['action'=>'edit', 'id'=>$this->post->getId()])
+    'Home'         => $this->url('home'),
+    'Manage Posts' => $this->url('posts'),
+    'Edit Post'    => $this->url('posts', [
+        'action' => 'edit',
+        'id'     => $this->data["post_ent"]->getId()
+    ])
 ]);
 
 $this->form->get('title')->setAttributes([
@@ -62,9 +65,9 @@ $this->form->prepare();
             <?= $this->formElementErrors($this->form->get('status')); ?>
         </div>
         <?= $this->partial("_tags", [
-            'post' => $this->post,
+            'post' => $this->data["post_ent"],
             'form' => $this->form,
-            'tags' => $this->tags
+            'tags' => $this->data["all_tags"]
         ]);?>
         <?= $this->formElement($this->form->get('csrf')); ?>
     </div>

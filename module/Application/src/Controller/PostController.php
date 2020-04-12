@@ -89,35 +89,33 @@ class PostController extends AbstractActionController
      */
     public function editAction()
     {
-        $post = $this->checkInputDataIdAndEntity();
-        if ( $post === false ) {
+        $postEnt = $this->checkInputDataIdAndEntity();
+        if ( $postEnt === false ) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
 
-        $tags = $this->tagService->findAllTags();
-        $form = new PostForm('update', $this->em, $post);
+        $form = new PostForm('update', $this->em, $postEnt);
+        $serviceData = $this->postService->getPostByIdWithAllTags($postEnt->getId());
 
         if ( $this->getRequest()->isPost() ) {
 
             $postData = $this->params()->fromPost();
             $form->setData($postData);
             if( $form->isValid() ) {
-                $this->postService->editPost($post, $postData, $tags);
+                $this->postService->editPost($serviceData, $postData);
                 return $this->redirect()->toRoute('posts', ['action'=>'index']);
             }
         } else {
 
             $form->setData(array(
-                'title'   => $post->getTitle(),
-                'content' => $post->getContent(),
-                'status'  => $post->getStatus()
+                'title'   => $postEnt->getTitle(),
+                'content' => $postEnt->getContent(),
+                'status'  => $postEnt->getStatus()
             ));
         }
 
-        return new ViewModel(
-            array('post' => $post, 'form' => $form, 'tags' => $tags)
-        );
+        return new ViewModel(array('data' => $serviceData, 'form' => $form));
     }
 
     /**

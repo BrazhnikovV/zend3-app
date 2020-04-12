@@ -4,6 +4,8 @@ namespace Application\Filter\post;
 
 use Application\Entity\Post;
 use Zend\Filter\AbstractFilter;
+use Application\common\TagsBindHelper;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class PostAddFilter
@@ -12,14 +14,10 @@ use Zend\Filter\AbstractFilter;
 class PostAddFilter extends AbstractFilter
 {
     /**
-     * @access public
-     * @param $value - фильтруемые данные
-     * @return mixed
+     * @access private
+     * @var ArrayCollection $allTags - данные формы
      */
-    static public function get($value)
-    {
-        return self::filter($value);
-    }
+    private $allTags = [];
 
     /**
      * @inheritDoc
@@ -30,7 +28,16 @@ class PostAddFilter extends AbstractFilter
         $post->setTitle($value['title']);
         $post->setContent($value['content']);
         $post->setStatus($value['status']);
+        $post->setTags(TagsBindHelper::getAttachedTags($value['tags'], $this->allTags));
 
         return $post;
+    }
+
+    /**
+     * setAllTags
+     * @param $tags
+     */
+    public function setAllTags($tags) {
+        $this->allTags = $tags;
     }
 }

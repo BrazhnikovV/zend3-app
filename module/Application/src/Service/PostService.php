@@ -27,14 +27,38 @@ class PostService
     private $authService;
 
     /**
+     * Tag service.
+     * @var Application\Service\TagService
+     */
+    private $tagService;
+
+    /**
+     * Post filter.
+     * @var Application\Filter\PostAddFilter
+     */
+    private $postEditFilter;
+
+    /**
+     * Post filter.
+     * @var Application\Filter\PostEditFilter
+     */
+    private $postAddFilter;
+
+    /**
      * Constructor.
      * @param $entityManager - менеджер сущностей
      * @param $authService
+     * @param $tagService
      */
-    public function __construct($entityManager, $authService)
+    public function __construct($entityManager, $authService, $tagService)
     {
         $this->em = $entityManager;
+
         $this->authService = $authService;
+        $this->tagService  = $tagService;
+
+        $this->postEditFilter = new PostEditFilter();
+        $this->postAddFilter  = new PostAddFilter();
     }
 
     /**
@@ -46,6 +70,21 @@ class PostService
     }
 
     /**
+     * getPostByIdWithAllTags - получить пост по id и все
+     * существующие теги для списка выбора
+     * @param $postId - идентификатор поста
+     * @return array
+     */
+    public function getPostByIdWithAllTags($postId) {
+
+        $arr = [];
+        $arr["all_tags"] = $this->tagService->findAllTags();
+        $arr["post_ent"] = $this->em->getRepository(Post::class)->find($postId);
+
+        return $arr;
+    }
+
+    /**
      * addPost - создать новый пост
      * @param $formData - данные формы создания поста
      * @param $allTags - все теги
@@ -53,11 +92,10 @@ class PostService
      */
     public function addPost($formData, $allTags) {
 
-        $selTags = $formData["tags"];
-
-        $postEntity = PostAddFilter::get($formData);
+        // устанавливаем список всех тегов для фильтра, чтобы было с чем сравнивать
+        $this->postAddFilter->setAllTags($allTags);
+        $postEntity = $this->postAddFilter->filter($formData);
         $postEntity->setUser($this->getCurrentUser());
-        $postEntity->setTags($this->getAttachedTags($selTags, $allTags));
 
         $this->em->persist($postEntity);
         $this->em->flush();
@@ -67,30 +105,32 @@ class PostService
 
     /**
      * editPost - обновить пост
-     * @param $postEntity - сущность поста(полученная по id)
+     * @param $serviceData -
      * @param $formData - данные формы редактирования поста
      * @param $allTags - все теги
      * @return mixed
      */
-    public function editPost($postEntity, $formData, $allTags) {
+    public function editPost($serviceData, $formData) {
 
-        $selTags = $formData["tags"];
+        $postEnt = $serviceData["post_ent"];
+        if ( $postEnt == null ) return false;
 
-        PostEditFilter::setFormData($formData);
-        $postEntity = PostEditFilter::get($postEntity);
-        $postEntity->setTags($this->getAttachedTags($selTags, $allTags));
+        // к сожалению интерфейс AbstractFilter не позволяет передавать в метод filter несколько переменных,
+        // поэтому необходимо передавать либо составную структуру данных либо использовать сеттеры
+        $this->postEditFilter->setAllTags($serviceData["all_tags"]);
+        $this->postEditFilter->setFormData($formData);
+        $postEnt = $this->postEditFilter->filter($postEnt);
 
-        $this->em->persist($postEntity);
+        $this->em->persist($postEnt);
         $this->em->flush();
 
-        return $postEntity;
+        return $postEnt;
     }
 
     /**
      * deletePost - удалить пост
-     * @param $post
-     * @param $data - данные формы создания поста
-     * @return mixed
+     * @param $post - сущность поста
+     * @return boolean
      */
     public function deletePost($post) {
 
@@ -107,26 +147,5 @@ class PostService
     private function getCurrentUser() {
         $email = $this->authService->getIdentity();
         return $this->em->getRepository(User::class)->findOneByEmail($email);
-    }
-
-    /**
-     * getAttachedTags
-     * @param $selectedTags
-     * @param $allTags
-     * @return array|ArrayCollection
-     */
-    private function getAttachedTags($selectedTags, $allTags) {
-
-        $tags = new ArrayCollection();
-
-        foreach ( $allTags as $tag ) {
-            foreach ( $selectedTags as $selectTag ) {
-                if ((int)$selectTag == $tag->getId() ) {
-                    $tags[] = $tag;
-                }
-            }
-        }
-
-        return $tags;
     }
 }
