@@ -2,23 +2,34 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
+use Application\Validator\TagNameExistsValidator;
 
 /**
- * Class TagForm
+ * Class TagForm - This form is used to collect tag's name. The form
+ * can work in two scenarios - 'create' and 'update'
  * @package Application\Form
  */
 class TagForm extends Form
 {
     /**
-     * Scenario ('create' or 'update').
-     * @var string
+     * @access private
+     * @var string $scenario - Scenario ('create' or 'update').
      */
     private $scenario;
 
     /**
-     * Constructor.
+     * @access private
+     * @var Application\Entity\Tag $tag - Current tag.
      */
-    public function __construct($scenario = 'create')
+    private $tag;
+
+    /**
+     * TagForm constructor.
+     * @param string $scenario
+     * @param null $entityManager
+     * @param null $tag
+     */
+    public function __construct($scenario = 'create', $entityManager = null, $tag = null)
     {
         // Define form name
         parent::__construct('tag-form');
@@ -28,6 +39,8 @@ class TagForm extends Form
 
         // Save parameters for internal use.
         $this->scenario = $scenario;
+        $this->entityManager = $entityManager;
+        $this->tag = $tag;
 
         $this->addElements();
         $this->addInputFilter();
@@ -88,7 +101,14 @@ class TagForm extends Form
                     'name'    => 'StringLength',
                     'options' => [
                         'min' => 1,
-                        'max' => 64
+                        'max' => 128
+                    ],
+                ],
+                [
+                    'name' => TagNameExistsValidator::class,
+                    'options' => [
+                        'entityManager' => $this->entityManager,
+                        'post' => $this->tag
                     ],
                 ],
             ],

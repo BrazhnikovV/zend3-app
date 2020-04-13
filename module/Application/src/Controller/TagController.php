@@ -64,7 +64,7 @@ class TagController extends AbstractActionController
      */
     public function addAction()
     {
-        $form = new TagForm('create');
+        $form = new TagForm('create', $this->em);
 
         if ( $this->getRequest()->isPost() ) {
 
@@ -88,13 +88,13 @@ class TagController extends AbstractActionController
      */
     public function editAction()
     {
-        $post = $this->checkInputDataIdAndEntity();
-        if ( $post === false ) {
+        $tagEntity = $this->checkInputDataIdAndEntity();
+        if ( $tagEntity === false ) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
 
-        $form = new TagForm('update');
+        $form = new TagForm('update', $this->em, $tagEntity);
 
         if ( $this->getRequest()->isPost() ) {
 
@@ -104,16 +104,16 @@ class TagController extends AbstractActionController
             if( $form->isValid() ) {
 
                 $data = $form->getData();
-                $this->tagService->editTag($post, $data);
+                $this->tagService->editTag($tagEntity, $data);
 
                 return $this->redirect()->toRoute('tags', ['action'=>'index']);
             }
         } else {
-            $form->setData(array( 'name' => $post->getName()));
+            $form->setData(array( 'name' => $tagEntity->getName()));
         }
 
         return new ViewModel(
-            array('tag' => $post, 'form' => $form)
+            array('tag' => $tagEntity, 'form' => $form)
         );
     }
 

@@ -25,5 +25,6 @@ return [
     'Date Created' => 'Дата создания',
     'Date Updated' => 'Дата обновления',
     'Actions' => 'Действия',
-    'Another post with such an title already exists' => 'Еще один пост с таким названием уже существует'
+    'Another post with such an title already exists' => 'Еще один пост с таким названием уже существует',
+    'Another tag with such an name already exists' => 'Еще один тег с таким именем уже существует'
 ];

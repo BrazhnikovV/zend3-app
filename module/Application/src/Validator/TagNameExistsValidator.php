@@ -1,15 +1,15 @@
 <?php
 namespace Application\Validator;
 
-use Application\Entity\Post;
+use Application\Entity\Tag;
 use Zend\Validator\AbstractValidator;
 
 /**
- * Class PostTitleExistsValidator - This validator class is designed for checking if there is an existing post
- * with such an title.
+ * Class TagNameExistsValidator - This validator class is designed for checking if there is an existing tag
+ * with such an name.
  * @package Application\Validator
  */
-class PostTitleExistsValidator extends AbstractValidator
+class TagNameExistsValidator extends AbstractValidator
 {
     /**
      * Available validator options.
@@ -17,17 +17,17 @@ class PostTitleExistsValidator extends AbstractValidator
      */
     protected $options = array(
         'entityManager' => null,
-        'post' => null
+        'tag' => null
     );
 
-    const TITLE_EXISTS = 'titleExists';
+    const NAME_EXISTS = 'nameExists';
 
     /**
      * Validation failure messages.
      * @var array
      */
     protected $messageTemplates = array(
-        self::TITLE_EXISTS  => "Another post with such an title already exists"
+        self::NAME_EXISTS  => "Another tag with such an name already exists"
     );
 
     /**
@@ -39,8 +39,8 @@ class PostTitleExistsValidator extends AbstractValidator
         if(is_array($options)) {
             if(isset($options['entityManager']))
                 $this->options['entityManager'] = $options['entityManager'];
-            if(isset($options['post']))
-                $this->options['post'] = $options['post'];
+            if(isset($options['tag']))
+                $this->options['tag'] = $options['tag'];
         }
 
         // Call the parent class constructor
@@ -56,12 +56,12 @@ class PostTitleExistsValidator extends AbstractValidator
         // Get Doctrine entity manager.
         $entityManager = $this->options['entityManager'];
 
-        $post = $entityManager->getRepository(Post::class)->findOneByTitle($value);
+        $tag = $entityManager->getRepository(Tag::class)->findOneByName($value);
 
-        if($this->options['post']==null) {
-            $isValid = ($post==null);
+        if($this->options['tag']==null) {
+            $isValid = ($tag==null);
         } else {
-            if($this->options['post']->getTitle()!=$value && $post!=null)
+            if($this->options['tag']->getName()!=$value && $tag!=null)
                 $isValid = false;
             else
                 $isValid = true;
@@ -69,7 +69,7 @@ class PostTitleExistsValidator extends AbstractValidator
 
         // If there were an error, set error message.
         if(!$isValid) {
-            $this->error(self::TITLE_EXISTS);
+            $this->error(self::NAME_EXISTS);
         }
 
         // Return validation result.

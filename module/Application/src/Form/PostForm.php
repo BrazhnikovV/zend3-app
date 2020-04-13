@@ -4,34 +4,36 @@ namespace Application\Form;
 use Zend\Form\Form;
 use Application\Validator\PostTitleExistsValidator;
 
-
 /**
- * This form is used to collect user's email, full name, password and status. The form
- * can work in two scenarios - 'create' and 'update'. In 'create' scenario, user
- * enters password, in 'update' scenario he/she doesn't enter password.
+ * Class PostForm - This form is used to collect post's title, content and status. The form
+ * can work in two scenarios - 'create' and 'update'.
+ * @package Application\Form
  */
 class PostForm extends Form
 {
     /**
-     * Scenario ('create' or 'update').
-     * @var string
+     * @access private
+     * @var string $scenario - Scenario ('create' or 'update').
      */
     private $scenario;
 
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @access private
+     * @var Doctrine\ORM\EntityManager $entityManager - Entity manager.
      */
-    private $entityManager = null;
+    private $entityManager;
 
     /**
-     * Current user.
-     * @var Application\Entity\Post
+     * @access private
+     * @var Application\Entity\Post $post - Current user.
      */
-    private $post = null;
+    private $post;
 
     /**
-     * Constructor.
+     * PostForm constructor.
+     * @param string $scenario - сценарий логики(создание/обновление)
+     * @param null $entityManager - менеджер сущностей
+     * @param null $post - сущность поста
      */
     public function __construct($scenario = 'create', $entityManager = null, $post = null)
     {
