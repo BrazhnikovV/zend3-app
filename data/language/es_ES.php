@@ -36,6 +36,17 @@ return [
 
     'Fill out the title of the post' => 'Complete el título de la publicación',
     'Add Post' => 'Agregar publicación',
+    'Fill in the tag name' => 'Complete el nombre de la etiqueta',
     'Fill in the content' => 'Complete el contenido',
-    'Please fill out the following form and click the <i>Create</i> button.' => 'Complete el siguiente formulario y haga clic en el botón <i> Crear </i>.'
+    'Please fill out the following form and click the <i>Create</i> button.' => 'Complete el siguiente formulario y haga clic en el botón <i> Crear </i>.',
+
+    'Welcome' => 'Bienvenido',
+    'Manage Tags' => 'Administrar etiquetas',
+    'New Tag' => 'Nueva etiqueta',
+    'Add Tag' => 'Agregar etiqueta',
+    'Edit Tag' => 'Editar etiqueta',
+    'Fill in the tag name'=> 'Complete el nombre de la etiqueta',
+    'Please fill out the following form and click the <i>Create</i> button.</p>' => 'Complete el siguiente formulario y haga clic en el botón <i> Crear </i>.',
+    'Enter Name' => 'Ingrese un nombre'
+
 ];

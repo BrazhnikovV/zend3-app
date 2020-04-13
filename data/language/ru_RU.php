@@ -38,5 +38,14 @@ return [
     'Fill out the title of the post' => 'Заполните титульный заголов поста',
     'Add Post' => 'Добавить пост',
     'Fill in the content' => 'Заполните содержание',
-    'Please fill out the following form and click the <i>Create</i> button.' => 'Пожалуйста, заполните следующую форму и нажмите кнопку <i> Создать </i>.'
+    'Please fill out the following form and click the <i>Create</i> button.' => 'Пожалуйста, заполните следующую форму и нажмите кнопку <i> Создать </i>.',
+
+    'Welcome' => 'Добро пожаловать',
+    'Manage Tags' => 'Управление тегами',
+    'New Tag' => 'Новый тег',
+    'Add Tag' => 'Добавить тег',
+    'Edit Tag' => 'Редактировать тег',
+    'Fill in the tag name'=> 'Заполните название тега',
+    'Please fill out the following form and click the <i>Create</i> button.</p>' => 'Пожалуйста, заполните следующую форму и нажмите кнопку <i> Создать </i>.',
+    'Enter Name' => 'Введите название'
 ];

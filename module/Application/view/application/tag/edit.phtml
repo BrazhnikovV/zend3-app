@@ -1,27 +1,27 @@
 <?php
-$this->headTitle('Edit Tag');
+$this->headTitle($this->translate('Edit Tag'));
 $this->mainMenu()->setActiveItemId('tags');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home'=>$this->url('home'),
-    'Manage Tags'=>$this->url('tags'),
-    'Edit Tag'=>$this->url('tags', ['action'=>'edit', 'id'=>$this->tag->getId()])
+    $this->translate('Home')        => $this->url('home'),
+    $this->translate('Manage Tags') => $this->url('tags'),
+    $this->translate('Edit Tag')    => $this->url('tags', ['action'=>'edit', 'id'=>$this->tag->getId()])
 ]);
 
 $this->form->get('name')->setAttributes([
-    'class'=>'form-control',
-    'placeholder'=>'Enter Name'
+    'class'       => 'form-control',
+    'placeholder' => $this->translate('Fill in the tag name')
 ]);
 
 
 $this->form->get('submit')
     ->setAttributes(['class'=>'btn btn-primary'])
-    ->setValue('Save');
+    ->setValue($this->translate('Save'));
 
 $this->form->prepare();
 ?>
 
-<h1>Edit Tag</h1>
+<h1><?=$this->translate('Edit Tag')?></h1>
 
 <div class="row">
     <?= $this->form()->openTag($this->form); ?>
