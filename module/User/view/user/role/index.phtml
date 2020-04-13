@@ -1,17 +1,16 @@
 <?php
-$this->headTitle('Roles');
-
+$this->headTitle($this->translate('Roles'));
 $this->mainMenu()->setActiveItemId('roles');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home'=>$this->url('home'),
-    'Manage Roles'=>$this->url('roles'),
-    ]);
+    $this->translate('Home')         => $this->url('home'),
+    $this->translate('Manage Roles') => $this->url('roles'),
+]);
 ?>
 
 <div class="row">
     <div class="col-md-12">
-        <h1>Manage Roles</h1>
+        <h1><?=$this->translate('Manage Roles')?></h1>
 
         <?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>
         <?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
@@ -19,7 +18,8 @@ $this->pageBreadcrumbs()->setItems([
 
         <p>
             <a class="btn btn-default" href="<?= $this->url('roles', ['action'=>'add']); ?>">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Role
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <?=$this->translate('New Role')?>
             </a>
         </p>
     </div>
@@ -27,10 +27,10 @@ $this->pageBreadcrumbs()->setItems([
         <table class="table table-striped table-condensed table-bordered min-width-table">
             <tr>
                 <th class="column-id">ID</th>
-                <th >Name</th>
-                <th class="column-title">Description</th>
-                <th class="column-create">Date Created</th>
-                <th class="column-actions">Actions</th>
+                <th><?=$this->translate('Name')?></th>
+                <th class="column-title"><?=$this->translate('Description')?></th>
+                <th class="column-create"><?=$this->translate('Date Created')?></th>
+                <th class="column-actions"><?=$this->translate('Actions')?></th>
             </tr>
 
             <?php foreach ($this->roles as $role): ?>

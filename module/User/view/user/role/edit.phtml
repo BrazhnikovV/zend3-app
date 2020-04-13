@@ -1,71 +1,69 @@
 <?php
-$this->headTitle('Edit Role');
-
+$this->headTitle($this->translate('Edit Role'));
 $this->mainMenu()->setActiveItemId('roles');
 
 $this->pageBreadcrumbs()->setItems([
-            'Home'=>$this->url('home'),
-            'Manage Roles'=>$this->url('roles'),
-            'Edit Role ' . $role->getName() => $this->url('roles', ['action'=>'edit', 'id'=>$role->getId()])
-            ]);
+    $this->translate('Home')         => $this->url('home'),
+    $this->translate('Manage Roles') => $this->url('roles'),
+    $this->translate('Edit Role')    => $this->url('roles', ['action'=>'edit', 'id'=>$this->role->getId()])
+]);
 
-$form->get('name')->setAttributes([
-    'class'=>'form-control', 
-    'placeholder'=>'Enter name'
-    ]);
+$this->form->get('name')->setAttributes([
+    'class'       => 'form-control',
+    'placeholder' => $this->translate('Enter Name')
+]);
 
-$form->get('description')->setAttributes([
-    'class'=>'form-control', 
-    'placeholder'=>'Enter description'
-    ]);
+$this->form->get('description')->setAttributes([
+    'class'       => 'form-control',
+    'placeholder' => $this->translate('Enter description')
+]);
 
-$form->get('inherit_roles')->setAttributes([
-    'class'=>'form-control', 
-    ]);
+$this->form->get('inherit_roles')->setAttributes([
+    'class'=>'form-control',
+]);
 
 
-$form->get('submit')
+$this->form->get('submit')
         ->setAttributes(['class'=>'btn btn-primary'])
         ->setValue('Save');
 
-$form->prepare();
+$this->form->prepare();
 ?>
 
-<h1>Edit Role <?= $this->escapeHtml($role->getName()) ?></h1>
+<h1><?=$this->translate('Edit Role')?> <?= $this->escapeHtml($this->role->getName()) ?></h1>
 
 <p>
-<a class="btn btn-default" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$role->getId()]) ?>">
-  <span class="glyphicon glyphicon-check"></span> Edit Permissions
+<a class="btn btn-default" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$this->role->getId()]) ?>">
+    <span class="glyphicon glyphicon-check"></span>
+    <?=$this->translate('Edit Permissions')?>
 </a>
 </p>
 
 <div class="row">
     <div class="col-md-6">
-        <?= $this->form()->openTag($form); ?>
-        
+        <?= $this->form()->openTag($this->form); ?>
+
         <div class="form-group">
-            <?= $this->formLabel($form->get('name')); ?>
-            <?= $this->formElement($form->get('name')); ?>
-            <?= $this->formElementErrors($form->get('name')); ?>                  
+            <?= $this->formLabel($this->form->get('name')); ?>
+            <?= $this->formElement($this->form->get('name')); ?>
+            <?= $this->formElementErrors($this->form->get('name')); ?>
         </div>
-        
+
         <div class="form-group">
-            <?= $this->formLabel($form->get('description')); ?>
-            <?= $this->formElement($form->get('description')); ?>
-            <?= $this->formElementErrors($form->get('description')); ?>                  
+            <?= $this->formLabel($this->form->get('description')); ?>
+            <?= $this->formElement($this->form->get('description')); ?>
+            <?= $this->formElementErrors($this->form->get('description')); ?>
         </div>
-        
+
         <div class="form-group">
-            <?= $this->formLabel($form->get('inherit_roles')); ?>
-            <?= $this->formElement($form->get('inherit_roles')); ?>
-            <?= $this->formElementErrors($form->get('inherit_roles')); ?>
+            <?= $this->formLabel($this->form->get('inherit_roles')); ?>
+            <?= $this->formElement($this->form->get('inherit_roles')); ?>
+            <?= $this->formElementErrors($this->form->get('inherit_roles')); ?>
         </div>
-        
-        <?= $this->formElement($form->get('csrf')); ?>
-        
-        <?= $this->formElement($form->get('submit')); ?>
-        
+
+        <?= $this->formElement($this->form->get('csrf')); ?>
+        <?= $this->formElement($this->form->get('submit')); ?>
         <?= $this->form()->closeTag(); ?>
-    </div>    
-</div>   
+    </div>
+</div>
 

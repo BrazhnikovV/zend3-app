@@ -27,19 +27,16 @@ return [
     'Actions' => 'Действия',
     'Another post with such an title already exists' => 'Еще один пост с таким названием уже существует',
     'Another tag with such an name already exists' => 'Еще один тег с таким именем уже существует',
-
     'Enter title' => 'Введите название',
     'Enter description' => 'Введите описание',
     'Save' => 'Сохранить',
     'Edit Post' => 'Редактировать пост',
     'Name' => 'Название',
     'Content' => 'Содержание',
-
     'Fill out the title of the post' => 'Заполните титульный заголов поста',
     'Add Post' => 'Добавить пост',
     'Fill in the content' => 'Заполните содержание',
     'Please fill out the following form and click the <i>Create</i> button.' => 'Пожалуйста, заполните следующую форму и нажмите кнопку <i> Создать </i>.',
-
     'Welcome' => 'Добро пожаловать',
     'Manage Tags' => 'Управление тегами',
     'New Tag' => 'Новый тег',
@@ -48,7 +45,6 @@ return [
     'Fill in the tag name'=> 'Заполните название тега',
     'Please fill out the following form and click the <i>Create</i> button.</p>' => 'Пожалуйста, заполните следующую форму и нажмите кнопку <i> Создать </i>.',
     'Enter Name' => 'Введите название',
-
     'Users' => 'Пользователи',
     'Manage Users' => 'Управление пользователями',
     'E-mail' => 'Эл. почта',
@@ -89,4 +85,15 @@ return [
     'Edit' => 'Редактировать',
     'Roles' => 'Роли',
     'View User' => 'Просмотр пользователя',
+    'Add Role' => 'Добавить роль',
+    'Manage Roles' => 'Управление ролями',
+    'Role Name' => 'Имя роли',
+    'Description' => 'Описание',
+    'Optionally inherit permissions from these role(s)' => 'При желании наследовать разрешения от этих ролей',
+    'New Role' => 'Новая роль',
+    'Edit Role' => 'Редактировать роль',
+    'Edit Permissions' => 'Редактировать привелегии',
+    'Edit Permissions of' => 'Изменить разрешения',
+    'View Role' => 'Просмотр роли',
+    'Permissions' => 'Прививлегии'
 ];

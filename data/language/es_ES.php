@@ -26,20 +26,17 @@ return [
     "New Post" => "Nueva publicación",
     'Another post with such an title already exists' => 'Ya existe otra publicación con dicho título',
     'Another tag with such an name already exists' => 'Ya existe otra etiqueta con ese nombre',
-
     'Enter title' => 'Ingresar título',
     'Enter description' => 'Ingresar descripción',
     'Save' => 'Guardar',
     'Edit Post' => 'Editar publicación',
     'Name' => 'Nombre',
     'Content' => 'Contenido',
-
     'Fill out the title of the post' => 'Complete el título de la publicación',
     'Add Post' => 'Agregar publicación',
     'Fill in the tag name' => 'Complete el nombre de la etiqueta',
     'Fill in the content' => 'Complete el contenido',
     'Please fill out the following form and click the <i>Create</i> button.' => 'Complete el siguiente formulario y haga clic en el botón <i> Crear </i>.',
-
     'Welcome' => 'Bienvenido',
     'Manage Tags' => 'Administrar etiquetas',
     'New Tag' => 'Nueva etiqueta',
@@ -48,7 +45,6 @@ return [
     'Fill in the tag name'=> 'Complete el nombre de la etiqueta',
     'Please fill out the following form and click the <i>Create</i> button.</p>' => 'Complete el siguiente formulario y haga clic en el botón <i> Crear </i>.',
     'Enter Name' => 'Ingrese un nombre',
-
     'Users' => 'Usuarios',
     'E-mail' => 'Correo electrónico mail',
     'Full Name' => 'Nombre completo',
@@ -64,7 +60,6 @@ return [
     'Please fill out the following form and click the <i>Create</i> button.' => 'Por favor complete el siguiente formulario y haga clic en el botón <i> Crear </i>.',
     'Thank You' => 'Gracias',
     'Password reset instructions have been sent to your email address.' => 'Se han enviado instrucciones de restablecimiento de contraseña a su dirección de correo electrónico',
-
     'There is no user with such an email or the user is inactive.'=>'No hay usuario con dicho correo electrónico o el usuario está inactivo',
     'Your new password has been set successfully.'=>'Su nueva contraseña se ha configurado correctamente',
     'Return to'=>'Volver a',
@@ -90,4 +85,15 @@ return [
     'Roles' => 'Roles',
     'View User' => 'Ver usuario',
 
+    'Roles' => 'Roles',
+    'View User' => 'Ver usuario',
+    'Add Role' => 'Agregar rol',
+    'Manage Roles' => 'Administrar Roles',
+    'Role Name' => 'Role Name',
+    'Description' => 'Descripción',
+    'Optionally inherit permissions from these role(s)' => 'Opcionalmente heredar permisos de estos roles',
+    'New Role' => 'New Role',
+    'Edit Role' => 'Editar role',
+    'Edit Permissions' => 'Editar privilegios',
+    'Edit Permissions of' => 'Editar permisos',
 ];
