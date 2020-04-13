@@ -26,7 +26,7 @@ class Post
 
     /**
      * @access protected
-     * @ORM\Column(name="title")
+     * @ORM\Column(type="string", length=5, name="title",unique=true, nullable=false)
      */
     protected $title;
 

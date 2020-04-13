@@ -2,6 +2,7 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
+use Application\Validator\PostTitleExistsValidator;
 
 
 /**
@@ -140,7 +141,15 @@ class PostForm extends Form
                         'max' => 128
                     ],
                 ],
+                [
+                    'name' => PostTitleExistsValidator::class,
+                    'options' => [
+                        'entityManager' => $this->entityManager,
+                        'post' => $this->post
+                    ],
+                ],
             ],
+
         ]);
 
         // Add input for "full_name" field

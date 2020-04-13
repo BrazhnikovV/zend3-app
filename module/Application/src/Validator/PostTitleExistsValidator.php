@@ -3,11 +3,13 @@ namespace Application\Validator;
 
 use Application\Entity\Post;
 use Zend\Validator\AbstractValidator;
+
 /**
- * This validator class is designed for checking if there is an existing user
+ * Class PostTitleExistsValidator - This validator class is designed for checking if there is an existing user
  * with such an email.
+ * @package Application\Validator
  */
-class PostExistsValidator extends AbstractValidator
+class PostTitleExistsValidator extends AbstractValidator
 {
     /**
      * Available validator options.
@@ -18,17 +20,14 @@ class PostExistsValidator extends AbstractValidator
         'post' => null
     );
 
-    // Validation failure message IDs.
-    const NOT_SCALAR  = 'notScalar';
-    const USER_EXISTS = 'userExists';
+    const TITLE_EXISTS = 'titleExists';
 
     /**
      * Validation failure messages.
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOT_SCALAR  => "The email must be a scalar value",
-        self::USER_EXISTS  => "Another user with such an email already exists"
+        self::TITLE_EXISTS  => "Another post with such an title already exists"
     );
 
     /**
@@ -53,10 +52,6 @@ class PostExistsValidator extends AbstractValidator
      */
     public function isValid($value)
     {
-        if(!is_scalar($value)) {
-            $this->error(self::NOT_SCALAR);
-            return false;
-        }
 
         // Get Doctrine entity manager.
         $entityManager = $this->options['entityManager'];
@@ -65,11 +60,16 @@ class PostExistsValidator extends AbstractValidator
 
         if($this->options['post']==null) {
             $isValid = ($post==null);
+        } else {
+            if($this->options['post']->getTitle()!=$value && $post!=null)
+                $isValid = false;
+            else
+                $isValid = true;
         }
 
         // If there were an error, set error message.
         if(!$isValid) {
-            $this->error(self::USER_EXISTS);
+            $this->error(self::TITLE_EXISTS);
         }
 
         // Return validation result.

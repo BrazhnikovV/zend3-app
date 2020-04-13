@@ -24,5 +24,6 @@ return [
     "Manage Permissions" => "Administrar permisos",
     "Manage Users" => "Administrar usuarios",
     "New Post" => "Nueva publicación",
+    'Another post with such an title already exists' => 'Ya existe otra publicación con dicho título'
 
 ];
