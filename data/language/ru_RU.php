@@ -34,4 +34,9 @@ return [
     'Edit Post' => 'Редактировать пост',
     'Name' => 'Название',
     'Content' => 'Содержание',
+
+    'Fill out the title of the post' => 'Заполните титульный заголов поста',
+    'Add Post' => 'Добавить пост',
+    'Fill in the content' => 'Заполните содержание',
+    'Please fill out the following form and click the <i>Create</i> button.' => 'Пожалуйста, заполните следующую форму и нажмите кнопку <i> Создать </i>.'
 ];

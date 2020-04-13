@@ -33,4 +33,9 @@ return [
     'Edit Post' => 'Editar publicación',
     'Name' => 'Nombre',
     'Content' => 'Contenido',
+
+    'Fill out the title of the post' => 'Complete el título de la publicación',
+    'Add Post' => 'Agregar publicación',
+    'Fill in the content' => 'Complete el contenido',
+    'Please fill out the following form and click the <i>Create</i> button.' => 'Complete el siguiente formulario y haga clic en el botón <i> Crear </i>.'
 ];
