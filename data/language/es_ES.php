@@ -25,5 +25,12 @@ return [
     "Manage Users" => "Administrar usuarios",
     "New Post" => "Nueva publicación",
     'Another post with such an title already exists' => 'Ya existe otra publicación con dicho título',
-    'Another tag with such an name already exists' => 'Ya existe otra etiqueta con ese nombre'
+    'Another tag with such an name already exists' => 'Ya existe otra etiqueta con ese nombre',
+
+    'Enter title' => 'Ingresar título',
+    'Enter description' => 'Ingresar descripción',
+    'Save' => 'Guardar',
+    'Edit Post' => 'Editar publicación',
+    'Name' => 'Nombre',
+    'Content' => 'Contenido',
 ];

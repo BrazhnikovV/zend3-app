@@ -3,9 +3,9 @@ $this->headTitle('Edit Post');
 $this->mainMenu()->setActiveItemId('posts');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home'         => $this->url('home'),
-    'Manage Posts' => $this->url('posts'),
-    'Edit Post'    => $this->url('posts', [
+    $this->translate('Home')         => $this->url('home'),
+    $this->translate('Manage Posts') => $this->url('posts'),
+    $this->translate('Edit Post')    => $this->url('posts', [
         'action' => 'edit',
         'id'     => $this->data["post_ent"]->getId()
     ])
@@ -13,17 +13,17 @@ $this->pageBreadcrumbs()->setItems([
 
 $this->form->get('title')->setAttributes([
     'class'=>'form-control',
-    'placeholder'=>'Enter title'
+    'placeholder'=> $this->translate('Enter title')
 ]);
 
 $this->form->get('content')->setAttributes([
     'class'=>'form-control',
-    'placeholder'=>'Enter description'
+    'placeholder'=>$this->translate('Enter description')
 ]);
 
 if (!$this->access('post.manage')) {
     $this->form->get('status')->setAttributes([
-        'class'    => 'form-control disabled-click',
+        'class' => 'form-control disabled-click',
     ]);
 } else {
     $this->form->get('status')->setAttributes([
@@ -33,13 +33,13 @@ if (!$this->access('post.manage')) {
 
 $this->form->get('submit')
     ->setAttributes(['class'=>'btn btn-primary'])
-    ->setValue('Save');
+    ->setValue($this->translate('Save'));
 
 $this->form->prepare();
 
 ?>
 
-<h1>Edit Post</h1>
+<h1><?= $this->translate('Edit Post');?></h1>
 
 <div class="row">
     <?= $this->form()->openTag($this->form); ?>

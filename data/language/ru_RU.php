@@ -26,5 +26,12 @@ return [
     'Date Updated' => 'Дата обновления',
     'Actions' => 'Действия',
     'Another post with such an title already exists' => 'Еще один пост с таким названием уже существует',
-    'Another tag with such an name already exists' => 'Еще один тег с таким именем уже существует'
+    'Another tag with such an name already exists' => 'Еще один тег с таким именем уже существует',
+
+    'Enter title' => 'Введите название',
+    'Enter description' => 'Введите описание',
+    'Save' => 'Сохранить',
+    'Edit Post' => 'Редактировать пост',
+    'Name' => 'Название',
+    'Content' => 'Содержание',
 ];
