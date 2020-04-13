@@ -25,8 +25,8 @@ class TagForm extends Form
 
     /**
      * TagForm constructor.
-     * @param string $scenario
-     * @param null $entityManager
+     * @param string $scenario - сценарий логики(создание/обновление)
+     * @param null $entityManager - менеджер сущностей
      * @param null $tag
      */
     public function __construct($scenario = 'create', $entityManager = null, $tag = null)

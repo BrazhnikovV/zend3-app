@@ -9,8 +9,9 @@ use Common\Filter\PaginatorFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
- * This is the main controller class of the User Demo application. It contains
- * site-wide actions such as Home or About.
+ * Class TagController - This is the main controller class of the Tag application. It contains
+ * site-wide actions such as Home, Add, Edit, Delete.
+ * @package Application\Controller
  */
 class TagController extends AbstractActionController
 {

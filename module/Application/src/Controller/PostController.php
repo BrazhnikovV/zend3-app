@@ -3,15 +3,16 @@
 namespace Application\Controller;
 
 use Application\Entity\Post;
-use User\Entity\User;
 use Zend\View\Model\ViewModel;
 use Application\Form\PostForm;
 use Common\Filter\PaginatorFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 
+
 /**
- * This is the main controller class of the User Demo application. It contains
- * site-wide actions such as Home or About.
+ * Class PostController - This is the main controller class of the Post application. It contains
+ * site-wide actions such as Home, Add, Edit, Delete.
+ * @package Application\Controller
  */
 class PostController extends AbstractActionController
 {
