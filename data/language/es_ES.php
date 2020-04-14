@@ -96,4 +96,15 @@ return [
     'Edit Role' => 'Editar role',
     'Edit Permissions' => 'Editar privilegios',
     'Edit Permissions of' => 'Editar permisos',
+    'View Role' => 'View Role',
+    'Permissions' => 'Privilegios',
+
+    'New Permission' => 'Nuevo privilegio',
+    'Manage Permissions' => 'Manage Privileges',
+    'Add Permission' => 'Agregar privilegio',
+    'Please fill out the following form and click the <i>Create</i> button.' => 'Por favor complete el siguiente formulario y haga clic en el botón <i> Crear </i>.',
+    'Permission Name' => 'Nombre del permiso',
+    'Create' => 'Crear',
+    'Edit Permission' => 'Editar privilegio',
+    'View Permission' => 'Ver privilegio',
 ];

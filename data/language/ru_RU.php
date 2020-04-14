@@ -95,5 +95,14 @@ return [
     'Edit Permissions' => 'Редактировать привелегии',
     'Edit Permissions of' => 'Изменить разрешения',
     'View Role' => 'Просмотр роли',
-    'Permissions' => 'Прививлегии'
+    'Permissions' => 'Прививлегии',
+
+    'New Permission' => 'Новая привилегия',
+    'Manage Permissions' => 'Управление привилегиями',
+    'Add Permission' => 'Добавить привилегию',
+    'Please fill out the following form and click the <i>Create</i> button.' => 'Пожалуйста, заполните следующую форму и нажмите кнопку <i> Создать </i>.',
+    'Permission Name' => 'Название привилегии',
+    'Create' => 'Создать',
+    'Edit Permission' => 'Редактировать привилегию',
+    'View Permission' => 'Просмотреть привилегию',
 ];
