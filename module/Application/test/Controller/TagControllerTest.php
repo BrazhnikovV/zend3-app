@@ -5,14 +5,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace UserTest\Controller;
+namespace ApplicationTest\Controller;
 
-use Application\Controller\IndexController;
-use User\Controller\UserController;
 use Zend\Stdlib\ArrayUtils;
+use Application\Controller\TagController;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
-class UserControllerTest extends AbstractHttpControllerTestCase
+class TagControllerTest extends AbstractHttpControllerTestCase
 {
     public function setUp()
     {
@@ -32,13 +31,13 @@ class UserControllerTest extends AbstractHttpControllerTestCase
 
     public function testIndexActionCanBeAccessed()
     {
-        print "\nПроверяем контроллер пользователей\n";
-        $this->dispatch('/', 'GET');
-        $this->assertResponseStatusCode(200);
+        print "\nПроверяем контроллер тегов\n";
+        $this->dispatch('/tags', 'GET');
+        $this->assertResponseStatusCode(302);
         $this->assertModuleName('application');
-        $this->assertControllerName(IndexController::class); // as specified in router's controller name alias
-        $this->assertControllerClass('IndexController');
-        $this->assertMatchedRouteName('home');
+        $this->assertControllerName(TagController::class); // as specified in router's controller name alias
+        $this->assertControllerClass('TagController');
+        $this->assertMatchedRouteName('tags');
     }
 
     public function testIndexActionViewModelTemplateRenderedWithinLayout()
