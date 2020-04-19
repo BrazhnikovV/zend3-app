@@ -126,9 +126,6 @@ return [
     'rbac_manager' => [
         'assertions' => [Service\RbacAssertionManager::class],
     ],
-    'session_containers' => [
-        'I18nSessionContainer'
-    ],
     'service_manager' => [
         'factories' => [
             Service\PostService::class  => Service\Factory\PostServiceFactory::class,

@@ -11,6 +11,7 @@ use Zend\Mvc\MvcEvent;
 use User\Service\AuthManager;
 use User\Controller\AuthController;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\SessionManager;
 
 /**
  * Class Module - модуль для работы с пользователями их правами и привелегиями.
@@ -45,9 +46,7 @@ class Module
             100
         );
 
-        $sessionManager = $event->getApplication()->getServiceManager()->get('Zend\Session\SessionManager');
-
-        $this->forgetInvalidSession($sessionManager);
+        $this->forgetInvalidSession(new SessionManager());
     }
 
     /**
