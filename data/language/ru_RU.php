@@ -105,4 +105,8 @@ return [
     'Create' => 'Создать',
     'Edit Permission' => 'Редактировать привилегию',
     'View Permission' => 'Просмотреть привилегию',
+    'Please sign in' => 'Пожалуйста войдите',
+    'Incorrect login and/or password.' => 'Неверный логин и / или пароль.',
+    'Forgot password?' =>'Забыли пароль?',
+    'Remember me' => 'Запомнить меня'
 ];

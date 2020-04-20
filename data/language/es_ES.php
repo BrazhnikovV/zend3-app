@@ -107,4 +107,9 @@ return [
     'Create' => 'Crear',
     'Edit Permission' => 'Editar privilegio',
     'View Permission' => 'Ver privilegio',
+
+    'Please sign in' => 'Por favor, inicie sesión',
+    'Incorrect login and/or password.' => 'Nombre de usuario y / o contraseña inválidos',
+    'Forgot password?' =>'Olvidó su contraseña?',
+    'Remember me' => 'Recordarme'
 ];
