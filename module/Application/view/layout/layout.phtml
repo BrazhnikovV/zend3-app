@@ -12,9 +12,9 @@
 
         <!-- Le styles -->
         <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
-                        ->prependStylesheet($this->basePath('css/style.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+                 ->prependStylesheet($this->basePath('css/style.css'))
+                 ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                 ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
         ?>
 
         <!-- Scripts -->
@@ -28,8 +28,8 @@
             <div class="row">
                 <!-- Page header -->
                 <div class="col-md-4">
-                    <div class="app-caption">Role Demo</div>
-                </div>                
+<!--                    <div class="app-caption">Role Demo</div>-->
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -58,11 +58,11 @@
                     <?= $this->content; ?>
                 </div>
             </div>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - <?= date('Y') ?> by Your Company. All rights reserved.</p>
-            </footer>
         </div>
+        <footer class="text-center">
+            <hr>
+            <p>&copy; 2005 - <?= date('Y') ?> by Your Company. All rights reserved.</p>
+        </footer>
         <?= $this->inlineScript() ?>
     </body>
 </html>

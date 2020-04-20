@@ -7,12 +7,17 @@
 
 namespace Application;
 
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zend\I18n\Translator\TranslatorInterface;
+use Zend\I18n\Translator\TranslatorServiceFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
+//        'router_class' => Zend\Mvc\I18n\Router\TranslatorAwareTreeRouteStack::class,
+//        //'translator_text_domain' => 'router',
         'routes' => [
             'home' => [
                 'type' => Literal::class,
@@ -47,12 +52,42 @@ return [
                         'action'     => 'about',
                     ],
                 ],
-            ],            
+            ],
+            'posts' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/posts[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ],
+                    'defaults' => [
+                        'controller'    => Controller\PostController::class,
+                        'action'        => 'index',
+                    ],
+                ],
+            ],
+            'tags' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/tags[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ],
+                    'defaults' => [
+                        'controller'    => Controller\TagController::class,
+                        'action'        => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
+            Controller\PostController::class => Controller\Factory\PostControllerFactory::class,
+            Controller\TagController::class => Controller\Factory\TagControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -60,19 +95,30 @@ return [
     'access_filter' => [
         'options' => [
             // The access filter can work in 'restrictive' (recommended) or 'permissive'
-            // mode. In restrictive mode all controller actions must be explicitly listed 
-            // under the 'access_filter' config key, and access is denied to any not listed 
-            // action for not logged in users. In permissive mode, if an action is not listed 
-            // under the 'access_filter' key, access to it is permitted to anyone (even for 
+            // mode. In restrictive mode all controller actions must be explicitly listed
+            // under the 'access_filter' config key, and access is denied to any not listed
+            // action for not logged in users. In permissive mode, if an action is not listed
+            // under the 'access_filter' key, access to it is permitted to anyone (even for
             // not logged in users. Restrictive mode is more secure and recommended to use.
             'mode' => 'restrictive'
         ],
         'controllers' => [
             Controller\IndexController::class => [
                 // Allow anyone to visit "index" and "about" actions
-                ['actions' => ['index', 'about'], 'allow' => '*'],
+                ['actions' => ['index', 'about', 'language'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
                 ['actions' => ['settings'], 'allow' => '@']
+            ],
+            Controller\PostController::class => [
+                // Allow anyone to visit "index" and "about" actions
+                //['actions' => ['index'], 'allow' => '*'],
+                // Allow authorized users to visit "settings" action
+                ['actions' => ['index','add','edit'], 'allow' => '+post.author'],
+                ['actions' => ['delete'], 'allow' => '+post.manage']
+            ],
+            Controller\TagController::class => [
+                ['actions' => ['index','add','edit'], 'allow' => '+post.author'],
+                ['actions' => ['delete'], 'allow' => '+post.manage']
             ],
         ]
     ],
@@ -82,8 +128,11 @@ return [
     ],
     'service_manager' => [
         'factories' => [
+            Service\PostService::class  => Service\Factory\PostServiceFactory::class,
+            Service\TagService::class  => Service\Factory\TagServiceFactory::class,
             Service\NavManager::class => Service\Factory\NavManagerFactory::class,
             Service\RbacAssertionManager::class => Service\Factory\RbacAssertionManagerFactory::class,
+            TranslatorInterface::class => TranslatorServiceFactory::class,
         ],
     ],
     'view_helpers' => [
@@ -119,5 +168,19 @@ return [
             'message_close_string'     => '</li></ul></div>',
             'message_separator_string' => '</li><li>'
         ]
-    ],   
+    ],
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
+        ]
+    ],
 ];

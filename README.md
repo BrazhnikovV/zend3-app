@@ -35,8 +35,8 @@ mkdir data/cache
 Adjust permissions for `data` directory:
 
 ```
-sudo chown -R www-data:www-data data
-sudo chmod -R 775 data
+sudo chown -R www-data:www-data data/cache
+sudo chmod -R 775 data/cache
 ```
 
 Create `public/img/captcha` directory:

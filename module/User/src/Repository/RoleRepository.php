@@ -1,8 +1,26 @@
 <?php
+namespace User\Repository;
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+use Doctrine\ORM\EntityRepository;
+
+/**
+ * Class RoleRepository
+ * @package User\Repository
  */
+class RoleRepository extends EntityRepository
+{
+    /**
+     * Retrieves all roles in descending dateCreated order.
+     * @return Query
+     */
+    public function findAllRoles()
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
+        $queryBuilder->select('r')
+            ->from(\User\Entity\Role::class, 'r')
+            ->orderBy('r.dateCreated', 'DESC');
+
+        return $queryBuilder->getQuery();
+    }
+}

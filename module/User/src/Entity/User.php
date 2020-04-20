@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * This class represents a registered user.
  * @ORM\Entity(repositoryClass="\User\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="users")
  */
 class User
@@ -16,6 +17,7 @@ class User
     const STATUS_RETIRED      = 2; // Retired user.
 
     /**
+     * @access protected
      * @ORM\Id
      * @ORM\Column(name="id")
      * @ORM\GeneratedValue
@@ -23,29 +25,40 @@ class User
     protected $id;
 
     /**
+     * @access protected
      * @ORM\Column(name="email")
      */
     protected $email;
 
     /**
+     * @access protected
      * @ORM\Column(name="full_name")
      */
     protected $fullName;
 
     /**
+     * @access protected
      * @ORM\Column(name="password")
      */
     protected $password;
 
     /**
+     * @access protected
      * @ORM\Column(name="status")
      */
     protected $status;
 
     /**
+     * @access protected
      * @ORM\Column(name="date_created")
      */
     protected $dateCreated;
+
+    /**
+     * @access protected
+     * @ORM\Column(name="date_updated")
+     */
+    protected $dateUpdated;
 
     /**
      * @ORM\Column(name="pwd_reset_token")
@@ -67,11 +80,19 @@ class User
     private $roles;
 
     /**
+     * @access protected
+     * @ORM\OneToMany(targetEntity="\Application\Entity\Post", mappedBy="user", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(name="id", referencedColumnName="author_id")
+     */
+    protected $posts;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -208,6 +229,25 @@ class User
     }
 
     /**
+     * getDateUpdated - Возвращает дату обновления данного пользователя.
+     * @return mixed
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+
+    /**
+     * setDateUpdated - Устанавливает дату обновления данного пользователя.
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
+     */
+    public function setDateUpdated()
+    {
+        $this->dateUpdated = date('Y-m-d H:i:s');
+    }
+
+    /**
      * Returns password reset token.
      * @return string
      */
@@ -277,6 +317,24 @@ class User
     public function addRole($role)
     {
         $this->roles->add($role);
+    }
+
+    /**
+     * Возвращает .
+     * @return ArrayCollection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Добавляет новый
+     * @param $post
+     */
+    public function addPost($post)
+    {
+        $this->posts[] = $post;
     }
 }
 

@@ -1,0 +1,108 @@
+<?php
+use Zend\Form\Element\Checkbox;
+
+$this->headTitle($this->translate('Add Post'));
+$this->mainMenu()->setActiveItemId('posts');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translate('Home')         => $this->url('home'),
+    $this->translate('Manage Posts') => $this->url('posts'),
+    $this->translate('Add Post')     => $this->url('posts', ['action'=>'add'])
+]);
+
+$this->form->get('title')->setAttributes([
+    'class'=>'form-control',
+    'placeholder' => $this->translate('Fill out the title of the post')
+]);
+
+$this->form->get('tags[]')->setAttributes([
+
+]);
+
+$this->form->get('content')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>$this->translate('Fill in the content')
+]);
+
+if (!$this->access('post.manage')) {
+    $this->form->get('status')->setAttributes([
+        'class' => 'form-control disabled-click',
+    ]);
+} else {
+    $this->form->get('status')->setAttributes([
+        'class'=>'form-control'
+    ]);
+}
+
+$this->form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+$this->form->prepare();
+
+?>
+
+<h1><?= $this->translate('Add Post')?></h1>
+
+<p><?= $this->translate('Please fill out the following form and click the <i>Create</i> button.')?></p>
+
+<div class="row">
+    <?= $this->form()->openTag($this->form); ?>
+    <div class="col-md-12">
+        <?= $this->formElementErrors($this->form->get('csrf')); ?>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('title')); ?>
+            <?= $this->formElement($this->form->get('title')); ?>
+            <?= $this->formElementErrors($this->form->get('title')); ?>
+        </div>
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('content')); ?>
+            <?= $this->formElement($this->form->get('content')); ?>
+            <?= $this->formElementErrors($this->form->get('content')); ?>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('status')); ?>
+            <?= $this->formElement($this->form->get('status')); ?>
+            <?= $this->formElementErrors($this->form->get('status')); ?>
+        </div>
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('tags[]')); ?>
+            <div id="tags-well" class="well">
+                <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><?= $this->translate('Name')?></th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="inner-well">
+                    <table class="table table-hover table-striped table-bordered">
+                        <tbody>
+                        <? foreach ($this->tags as $tag): ?>
+                            <tr>
+                                <td>
+                                    <? $checkboxElement = new Checkbox('tags[]');?>
+                                    <? $checkboxElement->setUseHiddenElement(false); ?>
+                                    <? $checkboxElement->setCheckedValue($tag->getId());?>
+
+                                    <?= $this->formCheckbox($checkboxElement); ?>
+                                </td>
+                                <td><?= $tag->getName() ?></td>
+                            </tr>
+                        <? endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <?= $this->formElementErrors($this->form->get('tags[]')); ?>
+        </div>
+        <?= $this->formElement($this->form->get('csrf')); ?>
+    </div>
+    <div class="col-md-12">
+        <?= $this->formElement($this->form->get('submit')); ?>
+    </div>
+    <?= $this->form()->closeTag(); ?>
+</div>
+

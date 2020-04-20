@@ -1,74 +1,73 @@
 <?php
-$this->headTitle('Edit User');
-
+$this->headTitle($this->translate('Edit User'));
 $this->mainMenu()->setActiveItemId('users');
 
 $this->pageBreadcrumbs()->setItems([
-            'Home'=>$this->url('home'),
-            'Manage Users'=>$this->url('users'),
-            'Edit User'=>$this->url('users', ['action'=>'edit', 'id'=>$user->getId()])
-            ]);
+    $this->translate('Home')         => $this->url('home'),
+    $this->translate('Manage Users') => $this->url('users'),
+    $this->translate('Edit User')    => $this->url('users', ['action'=>'edit', 'id'=>$this->user->getId()])
+]);
 
-$form->get('email')->setAttributes([
-    'class'=>'form-control', 
-    'placeholder'=>'name@example.com'
-    ]);
+$this->form->get('email')->setAttributes([
+    'class'       => 'form-control',
+    'placeholder' => 'name@example.com'
+]);
 
-$form->get('full_name')->setAttributes([
-    'class'=>'form-control', 
-    'placeholder'=>'John Doe'
-    ]);
+$this->form->get('full_name')->setAttributes([
+    'class'       => 'form-control',
+    'placeholder' => $this->translate('Enter full name')
+]);
 
-$form->get('status')->setAttributes([
+$this->form->get('status')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$this->form->get('roles')->setAttributes([
     'class'=>'form-control'
-    ]);
+]);
 
-$form->get('roles')->setAttributes([
-    'class'=>'form-control'
-    ]);
+$this->form->get('submit')
+    ->setAttributes(['class'=>'btn btn-primary'])
+    ->setValue($this->translate('Save'));
 
-$form->get('submit')
-        ->setAttributes(['class'=>'btn btn-primary'])
-        ->setValue('Save');
-
-$form->prepare();
+$this->form->prepare();
 ?>
 
-<h1>Edit User <?= $this->escapeHtml($user->getEmail()) ?></h1>
+<h1><?= $this->translate('Edit User')?> <?= $this->escapeHtml($this->user->getEmail()) ?></h1>
 
 <div class="row">
     <div class="col-md-6">
-        <?= $this->form()->openTag($form); ?>
-        
+        <?= $this->form()->openTag($this->form); ?>
+
         <div class="form-group">
-            <?= $this->formLabel($form->get('email')); ?>
-            <?= $this->formElement($form->get('email')); ?>
-            <?= $this->formElementErrors($form->get('email')); ?>                  
-        </div>
-        
-        <div class="form-group">
-            <?= $this->formLabel($form->get('full_name')); ?>
-            <?= $this->formElement($form->get('full_name')); ?>
-            <?= $this->formElementErrors($form->get('full_name')); ?>                  
-        </div>
-        
-        <div class="form-group">
-            <?= $this->formLabel($form->get('status')); ?>
-            <?= $this->formElement($form->get('status')); ?>
-            <?= $this->formElementErrors($form->get('status')); ?>                  
-        </div>
-        
-        <div class="form-group">
-            <?= $this->formLabel($form->get('roles')); ?>
-            <?= $this->formElement($form->get('roles')); ?>
-            <?= $this->formElementErrors($form->get('roles')); ?>                  
+            <?= $this->formLabel($this->form->get('email')); ?>
+            <?= $this->formElement($this->form->get('email')); ?>
+            <?= $this->formElementErrors($this->form->get('email')); ?>
         </div>
 
-        <?= $this->formElement($form->get('csrf')); ?>
-        <?= $this->formElementErrors($form->get('csrf')); ?>
-        <?= $this->formElement($form->get('submit')); ?>
-        
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('full_name')); ?>
+            <?= $this->formElement($this->form->get('full_name')); ?>
+            <?= $this->formElementErrors($this->form->get('full_name')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('status')); ?>
+            <?= $this->formElement($this->form->get('status')); ?>
+            <?= $this->formElementErrors($this->form->get('status')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('roles')); ?>
+            <?= $this->formElement($this->form->get('roles')); ?>
+            <?= $this->formElementErrors($this->form->get('roles')); ?>
+        </div>
+
+        <?= $this->formElement($this->form->get('csrf')); ?>
+        <?= $this->formElementErrors($this->form->get('csrf')); ?>
+        <?= $this->formElement($this->form->get('submit')); ?>
+
         <?= $this->form()->closeTag(); ?>
-    </div>    
-</div>   
+    </div>
+</div>
 

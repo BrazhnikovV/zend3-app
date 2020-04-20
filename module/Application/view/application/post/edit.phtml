@@ -1,0 +1,79 @@
+<?php
+$this->headTitle('Edit Post');
+$this->mainMenu()->setActiveItemId('posts');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translate('Home')         => $this->url('home'),
+    $this->translate('Manage Posts') => $this->url('posts'),
+    $this->translate('Edit Post')    => $this->url('posts', [
+        'action' => 'edit',
+        'id'     => $this->data["post_ent"]->getId()
+    ])
+]);
+
+$this->form->get('title')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=> $this->translate('Enter title')
+]);
+
+$this->form->get('content')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>$this->translate('Enter description')
+]);
+
+if (!$this->access('post.manage')) {
+    $this->form->get('status')->setAttributes([
+        'class' => 'form-control disabled-click',
+    ]);
+} else {
+    $this->form->get('status')->setAttributes([
+        'class'=>'form-control'
+    ]);
+}
+
+$this->form->get('submit')
+    ->setAttributes(['class'=>'btn btn-primary'])
+    ->setValue($this->translate('Save'));
+
+$this->form->prepare();
+
+?>
+
+<h1><?= $this->translate('Edit Post');?></h1>
+
+<div class="row">
+    <?= $this->form()->openTag($this->form); ?>
+    <div class="col-md-12">
+        <?= $this->formElementErrors($this->form->get('csrf')); ?>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('title')); ?>
+            <?= $this->formElement($this->form->get('title')); ?>
+            <?= $this->formElementErrors($this->form->get('title')); ?>
+        </div>
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('content')); ?>
+            <?= $this->formElement($this->form->get('content')); ?>
+            <?= $this->formElementErrors($this->form->get('content')); ?>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('status')); ?>
+            <?= $this->formElement($this->form->get('status')); ?>
+            <?= $this->formElementErrors($this->form->get('status')); ?>
+        </div>
+        <?= $this->partial("_tags", [
+            'post' => $this->data["post_ent"],
+            'form' => $this->form,
+            'tags' => $this->data["all_tags"]
+        ]);?>
+        <?= $this->formElement($this->form->get('csrf')); ?>
+    </div>
+    <div class="col-md-12">
+        <?= $this->formElement($this->form->get('submit')); ?>
+    </div>
+    <?= $this->form()->closeTag(); ?>
+</div>
+

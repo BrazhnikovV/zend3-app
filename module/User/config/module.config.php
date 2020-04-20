@@ -106,8 +106,8 @@ return [
         'factories' => [
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
             Controller\PermissionController::class => Controller\Factory\PermissionControllerFactory::class,
-            Controller\RoleController::class => Controller\Factory\RoleControllerFactory::class,    
-            Controller\UserController::class => Controller\Factory\UserControllerFactory::class, 
+            Controller\RoleController::class => Controller\Factory\RoleControllerFactory::class,
+            Controller\UserController::class => Controller\Factory\UserControllerFactory::class,
         ],
     ],
     // We register module-provided controller plugins under this key.
@@ -144,13 +144,15 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            \Zend\Authentication\AuthenticationService::class => Service\Factory\AuthenticationServiceFactory::class,
             Service\AuthAdapter::class => Service\Factory\AuthAdapterFactory::class,
             Service\AuthManager::class => Service\Factory\AuthManagerFactory::class,
-            Service\PermissionManager::class => Service\Factory\PermissionManagerFactory::class,
             Service\RbacManager::class => Service\Factory\RbacManagerFactory::class,
             Service\RoleManager::class => Service\Factory\RoleManagerFactory::class,
             Service\UserManager::class => Service\Factory\UserManagerFactory::class,
+            Service\PermissionManager::class => Service\Factory\PermissionManagerFactory::class,
+
+            \Zend\Session\SessionManager::class => Service\Factory\SessionManagerFactory::class,
+            \Zend\Authentication\AuthenticationService::class => Service\Factory\AuthenticationServiceFactory::class,
         ],
     ],
     'view_manager' => [

@@ -1,58 +1,56 @@
 <?php
-$this->headTitle('Add Permission');
-
+$this->headTitle($this->translate('Add Permission'));
 $this->mainMenu()->setActiveItemId('permissions');
 
 $this->pageBreadcrumbs()->setItems([
-            'Home'=>$this->url('home'),
-            'Manage Permissions'=>$this->url('permissions'),
-            'Add Permission'=>$this->url('permissions', ['action'=>'add'])
-            ]);
+    $this->translate('Home')               => $this->url('home'),
+    $this->translate('Manage Permissions') => $this->url('permissions'),
+    $this->translate('Add Permission')     => $this->url('permissions', ['action'=>'add'])
+]);
 
-$form->get('name')->setAttributes([
-    'class'=>'form-control', 
-    'placeholder'=>'Enter name'
-    ]);
+$this->form->get('name')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => $this->translate('Enter Name')
+]);
 
-$form->get('description')->setAttributes([
-    'class'=>'form-control', 
-    'placeholder'=>'Enter description'
-    ]);
+$this->form->get('description')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => $this->translate('Enter description')
+]);
 
-$form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
-
-$form->prepare();
+$this->form->get('submit')
+    ->setAttributes(['class'=>'btn btn-primary'])
+    ->setValue($this->translate('Create'));
+$this->form->prepare();
 ?>
 
-<h1>Add Permission</h1>
+<h1><?=$this->translate('Add Permission')?></h1>
 
 <p>
-    Please fill out the following form and click the <i>Create</i> button.
+<?=$this->translate('Please fill out the following form and click the <i>Create</i> button.')?>
 </p>
 
 <div class="row">
     <div class="col-md-6">
-        <?= $this->form()->openTag($form); ?>
-        
+        <?= $this->form()->openTag($this->form); ?>
+
         <div class="form-group">
-            <?= $this->formLabel($form->get('name')); ?>
-            <?= $this->formElement($form->get('name')); ?>
-            <?= $this->formElementErrors($form->get('name')); ?>                  
+            <?= $this->formLabel($this->form->get('name')); ?>
+            <?= $this->formElement($this->form->get('name')); ?>
+            <?= $this->formElementErrors($this->form->get('name')); ?>
         </div>
-        
+
         <div class="form-group">
-            <?= $this->formLabel($form->get('description')); ?>
-            <?= $this->formElement($form->get('description')); ?>
-            <?= $this->formElementErrors($form->get('description')); ?>                  
+            <?= $this->formLabel($this->form->get('description')); ?>
+            <?= $this->formElement($this->form->get('description')); ?>
+            <?= $this->formElementErrors($this->form->get('description')); ?>
         </div>
-        
-        <?= $this->formElement($form->get('csrf')); ?>
-        
-        <?= $this->formElement($form->get('submit')); ?>
-        
+
+        <?= $this->formElement($this->form->get('csrf')); ?>
+        <?= $this->formElement($this->form->get('submit')); ?>
         <?= $this->form()->closeTag(); ?>
-    </div>    
-</div>   
+    </div>
+</div>
 
 
 

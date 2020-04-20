@@ -20,7 +20,7 @@ return [
     // Session configuration.
     'session_config' => [
         'cookie_lifetime'     => 60*60*1, // Session cookie will expire in 1 hour.
-        'gc_maxlifetime'      => 60*60*24*30, // How long to store session data on server (for 1 month).        
+        'gc_maxlifetime'      => 60*60*24*30, // How long to store session data on server (for 1 month).
     ],
     // Session manager configuration.
     'session_manager' => [
@@ -43,19 +43,19 @@ return [
                     // Store cached data in this directory.
                     'cache_dir' => './data/cache',
                     // Store cached data for 1 hour.
-                    'ttl' => 60*60*1 
+                    'ttl' => 60*60*1
                 ],
             ],
             'plugins' => [
                 [
                     'name' => 'serializer',
-                    'options' => [                        
+                    'options' => [
                     ],
                 ],
             ],
         ],
     ],
-    'doctrine' => [        
+    'doctrine' => [
         // migrations configuration
         'migrations_configuration' => [
             'orm_default' => [
@@ -66,4 +66,20 @@ return [
             ],
         ],
     ],
+    'view_helpers' => [
+        'invokables' => [
+            'translate' => \Zend\I18n\View\Helper\Translate::class
+        ]
+    ],
+    'translator' => [
+        'locale' => 'ru_RU',
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phpArray',
+                'base_dir' => getcwd() .  '/data/language',
+                'pattern'  => '%s.php',
+            ],
+        ],
+    ],
 ];
+// \Locale::setDefault('ru_RU');

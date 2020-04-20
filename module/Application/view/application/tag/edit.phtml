@@ -1,0 +1,46 @@
+<?php
+$this->headTitle($this->translate('Edit Tag'));
+$this->mainMenu()->setActiveItemId('tags');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translate('Home')        => $this->url('home'),
+    $this->translate('Manage Tags') => $this->url('tags'),
+    $this->translate('Edit Tag')    => $this->url('tags', ['action'=>'edit', 'id'=>$this->tag->getId()])
+]);
+
+$this->form->get('name')->setAttributes([
+    'class'       => 'form-control',
+    'placeholder' => $this->translate('Fill in the tag name')
+]);
+
+
+$this->form->get('submit')
+    ->setAttributes(['class'=>'btn btn-primary'])
+    ->setValue($this->translate('Save'));
+
+$this->form->prepare();
+?>
+
+<h1><?=$this->translate('Edit Tag')?></h1>
+
+<div class="row">
+    <?= $this->form()->openTag($this->form); ?>
+    <div class="col-md-12">
+        <?= $this->formElementErrors($this->form->get('csrf')); ?>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <?= $this->formLabel($this->form->get('name')); ?>
+            <?= $this->formElement($this->form->get('name')); ?>
+            <?= $this->formElementErrors($this->form->get('name')); ?>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <?= $this->formElement($this->form->get('csrf')); ?>
+    </div>
+    <div class="col-md-12">
+        <?= $this->formElement($this->form->get('submit')); ?>
+    </div>
+    <?= $this->form()->closeTag(); ?>
+</div>
+

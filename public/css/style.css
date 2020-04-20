@@ -1,5 +1,15 @@
+html {
+    height: 100%;
+}
 body {
     padding-bottom: 40px;
+    height: 100%;
+}
+
+.container {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -41px;
 }
 
 .zf-green {
@@ -35,7 +45,7 @@ div.container a.navbar-brand > img {
 }
 
 div.app-caption {
-    padding: 25px 0px;    
+    padding: 25px 0px;
     font-size:3.0em;
     font-weight: bold;
     color:#6aacaf
@@ -47,12 +57,139 @@ form ul {
   margin: 0px 5px;
 }
 
-form ul li {    
-  color: red;        
+form ul li {
+  color: red;
 }
 
 .alert ul {
   list-style-type: none;
   padding: 0px;
   margin: 0px 5px;
+}
+
+.navbar-default {
+    margin-top: 15px;
+}
+
+.mb-2 {
+    margin-bottom: 15px;
+}
+
+h1 {
+    margin-top: 0px;
+}
+
+.disabled-click {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+form ul li {
+    margin-left: -5px;
+    margin-bottom: 8px;
+}
+
+.btn-actions-mini a {
+    padding: 3px 5px 1px 6px;
+}
+
+.scroll-x-auto {
+    overflow-x: auto;
+}
+
+.min-width-table {
+    min-width: 970px;
+}
+
+.table > tbody > tr > td {
+    vertical-align: inherit;
+}
+
+.table > tbody > tr:first-child {
+    background-color: #e8e8e8;
+}
+
+.table > tbody > tr > td:not(:first-child) {
+    color: #696868;
+}
+/* ======================= Tags Table =========================*/
+#tags-well {
+    margin-bottom: 5px;
+}
+#tags-well > .inner-well {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+#tags-well > .table, #tags-well > .inner-well > .table {
+    margin-bottom: 2px;
+}
+
+#tags-well > .table > thead > tr {
+    background-color: #ccc;
+}
+
+#tags-well .table > thead > tr > th:first-child,
+#tags-well > .inner-well > .table > tbody > tr > td:first-child{
+    width: 50px;
+    text-align: center;
+}
+
+#tags-well .table  > tbody > tr > td:not(:first-child) {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+#tags-well .table  > tbody > tr:first-child {
+    background-color: #f9f9f9;
+}
+
+/* ======================= Columns Table =========================*/
+.column-id {
+    text-align: center;
+    width: 50px;
+}
+
+.column-title {
+    max-width: 400px;
+    padding-left: 10px;
+}
+
+.column-author {
+    text-align: center;
+    width: 80px;
+}
+.column-name {
+    text-align: center;
+    width: 80px;
+}
+.column-name > a {
+    width: 60px;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+}
+
+.column-actions {
+    text-align: center;
+    width: 80px;
+}
+
+.column-status {
+    text-align: center;
+    width: 60px;
+}
+
+.column-create {
+    text-align: center;
+    width: 160px;
+}
+
+.crop {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
