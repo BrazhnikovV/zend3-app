@@ -84,7 +84,6 @@ return [
     'Edit' => 'Editar',
     'Roles' => 'Roles',
     'View User' => 'Ver usuario',
-
     'Roles' => 'Roles',
     'View User' => 'Ver usuario',
     'Add Role' => 'Agregar rol',
@@ -98,7 +97,6 @@ return [
     'Edit Permissions of' => 'Editar permisos',
     'View Role' => 'View Role',
     'Permissions' => 'Privilegios',
-
     'New Permission' => 'Nuevo privilegio',
     'Manage Permissions' => 'Manage Privileges',
     'Add Permission' => 'Agregar privilegio',
@@ -107,9 +105,10 @@ return [
     'Create' => 'Crear',
     'Edit Permission' => 'Editar privilegio',
     'View Permission' => 'Ver privilegio',
-
     'Please sign in' => 'Por favor, inicie sesión',
     'Incorrect login and/or password.' => 'Nombre de usuario y / o contraseña inválidos',
     'Forgot password?' =>'Olvidó su contraseña?',
-    'Remember me' => 'Recordarme'
+    'Remember me' => 'Recordarme',
+    'Not Authorized' => 'No autorizado',
+    'Sorry, you have no permission to see this page.' => 'Lo sentimos, no tienes permiso para ver esta página.'
 ];

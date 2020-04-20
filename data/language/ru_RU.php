@@ -108,5 +108,7 @@ return [
     'Please sign in' => 'Пожалуйста войдите',
     'Incorrect login and/or password.' => 'Неверный логин и / или пароль.',
     'Forgot password?' =>'Забыли пароль?',
-    'Remember me' => 'Запомнить меня'
+    'Remember me' => 'Запомнить меня',
+    'Not Authorized' => 'Не авторизован',
+    'Sorry, you have no permission to see this page.' => 'Извините, у вас нет разрешения на просмотр этой страницы.'
 ];
