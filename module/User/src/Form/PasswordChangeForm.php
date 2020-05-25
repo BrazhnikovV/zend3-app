@@ -21,6 +21,7 @@ class PasswordChangeForm extends Form
     public function __construct($scenario)
     {
         // Define form name
+        //werqweqweqwe
         parent::__construct('password-change-form');
      
         $this->scenario = $scenario;
